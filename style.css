@@ -1,0 +1,43 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #5a0f14;
+  color: #000;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: #f5f0e6;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+header {
+  text-align: center;
+  border-bottom: 3px solid #bfa14a;
+  margin-bottom: 20px;
+}
+
+h1 { color: #5a0f14; }
+h2 { font-weight: normal; }
+
+.artigos label {
+  display: block;
+  margin: 5px 0;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #5a0f14;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.resultado {
+  margin-top: 20px;
+  font-size: 18px;
+}
