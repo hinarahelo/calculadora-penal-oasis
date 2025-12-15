@@ -11,7 +11,7 @@
 <div class="watermark"></div>
 
 <header class="header">
-  <img src="logo-oasis.png" class="logo" alt="Brasão TJ Oasis">
+  <img src="logo-oasis.png" class="logo">
   <h1>
     CALCULADORA TRIBUNAL DE JUSTIÇA DE OASIS<br>
     <span>1ª VARA CIVIL E CRIMINAL</span>
@@ -31,30 +31,32 @@
     <label>Atenuantes</label>
 
     <div>
-      <input type="checkbox" class="atenuante" data-percent="0.30" data-desc="Réu primário (30%).">
-      Réu Primário (−30%)
+      <input type="checkbox" class="atenuante" data-percent="0.10" data-desc="Réu primário">
+      Réu Primário (−10%)
     </div>
 
     <div>
-      <input type="checkbox" class="atenuante" data-percent="0.10" data-desc="Confissão espontânea (10%).">
-      Confissão Espontânea (−10%)
+      <input type="checkbox" class="atenuante" data-percent="0.15" data-desc="Confissão espontânea">
+      Confissão Espontânea (−15%)
     </div>
 
     <div>
-      <input type="checkbox" class="atenuante" data-percent="0.10" data-desc="Bom comportamento (10%).">
-      Bom Comportamento (−10%)
+      <input type="checkbox" class="atenuante" data-percent="0.10" data-desc="Bons antecedentes">
+      Bons Antecedentes (−10%)
     </div>
 
     <div>
-      <input type="checkbox" class="atenuante" data-percent="0.20" data-desc="Advogado constituído (20%).">
-      Advogado Constituído (−20%)
+      <input type="checkbox" class="atenuante" data-percent="0.20" data-desc="Colaboração com a Justiça">
+      Colaboração com a Justiça (−20%)
     </div>
 
-    <div id="descricaoAtenuantes">Nenhuma atenuante selecionada.</div>
+    <div id="descricaoAtenuantes">
+      Nenhuma atenuante selecionada.
+    </div>
   </div>
 
   <button class="calculate-btn" onclick="calcular()">Calcular Pena</button>
-  <button class="calculate-btn" onclick="limpar()">Limpar Calculadora</button>
+  <button class="calculate-btn" onclick="limpar()">Limpar Cálculo</button>
 
   <div id="resultado" class="result"></div>
 
