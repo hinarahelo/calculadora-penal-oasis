@@ -4,64 +4,66 @@
   <meta charset="UTF-8">
   <title>Calculadora Penal | Tribunal de Justiça de Oasis</title>
 
-  <!-- FONTE MONTSERRAT -->
+  <!-- FONTE -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- ÍCONES (LUPA) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- FAIXA SUPERIOR COM BRASÃO -->
-  <div class="header">
-    <img src="logo-oasis.png" alt="Tribunal de Justiça de Oasis">
-    <h1>TRIBUNAL DE JUSTIÇA DE OASIS</h1>
-    <h2>1ª Vara Civil e Criminal</h2>
-  </div>
+<!-- FAIXA SUPERIOR -->
+<div class="header">
+  <img src="logo-oasis.png">
+  <h1>TRIBUNAL DE JUSTIÇA DE OASIS</h1>
+  <h2>1ª Vara Civil e Criminal</h2>
+</div>
 
-  <!-- DOCUMENTO -->
-  <div class="container">
+<div class="container">
 
-    <!-- BUSCA -->
-    <h3>Artigos Penais</h3>
+  <h3>Artigos Penais</h3>
+
+  <!-- CAMPO DE PESQUISA -->
+  <div class="busca-box">
     <input 
       type="text"
       id="busca"
       placeholder="Pesquisar por número ou nome do artigo"
-      oninput="filtrarArtigos()"
     >
-
-    <!-- LISTA DE ARTIGOS -->
-    <div id="artigos"></div>
-
-    <!-- ATENUANTES -->
-    <h3>Atenuantes</h3>
-
-    <label><input type="checkbox" id="primario"> Réu Primário</label>
-    <label><input type="checkbox" id="confissao"> Confissão Espontânea</label>
-    <label><input type="checkbox" id="colaboracao"> Colaboração com a Justiça</label>
-    <label><input type="checkbox" id="bons"> Bons Antecedentes</label>
-    <label><input type="checkbox" id="servidor"> Servidor Público</label>
-
-    <!-- BOTÃO -->
-    <button onclick="calcular()">Calcular Pena</button>
-
-    <!-- RESULTADO -->
-    <div class="resultado">
-      <p><strong>Pena Total (meses):</strong> <span id="pena">0</span></p>
-      <p><strong>Multa Total:</strong> R$ <span id="multa">0</span></p>
-      <p><strong>Fiança:</strong> <span id="fianca">0</span></p>
-    </div>
-
+    <button onclick="filtrarArtigos()">
+      <i class="fas fa-search"></i>
+    </button>
   </div>
 
-  <!-- RODAPÉ -->
-  <div class="footer">
-    Documento Oficial – Tribunal de Justiça de Oasis
+  <!-- LISTA -->
+  <div id="artigos"></div>
+
+  <!-- ATENUANTES -->
+  <h3>Atenuantes</h3>
+  <label><input type="checkbox" id="primario"> Réu Primário</label>
+  <label><input type="checkbox" id="confissao"> Confissão Espontânea</label>
+  <label><input type="checkbox" id="colaboracao"> Colaboração com a Justiça</label>
+  <label><input type="checkbox" id="bons"> Bons Antecedentes</label>
+  <label><input type="checkbox" id="servidor"> Servidor Público</label>
+
+  <button onclick="calcular()">Calcular Pena</button>
+
+  <div class="resultado">
+    <p><strong>Pena Total (meses):</strong> <span id="pena">0</span></p>
+    <p><strong>Multa Total:</strong> R$ <span id="multa">0</span></p>
+    <p><strong>Fiança:</strong> <span id="fianca">0</span></p>
   </div>
 
-  <!-- SCRIPT -->
-  <script src="script.js"></script>
+</div>
+
+<div class="footer">
+  Documento Oficial – Tribunal de Justiça de Oasis
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
