@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>TJ Oasis – Calculadora Penal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Tribunal de Justiça de Oasis</h1>
+    <h2>1ª Vara Cível e Criminal</h2>
+  </header>
+
+  <section class="artigos" id="artigos"></section>
+
+  <section class="opcoes">
+    <h3>Atenuantes</h3>
+    <label><input type="checkbox" id="reuPrimario"> Réu Primário (-30%)</label>
+    <label><input type="checkbox" id="advogado"> Advogado Constituído (-20%)</label>
+    <label><input type="checkbox" id="bomComportamento"> Bom Comportamento (-10%)</label>
+    <label><input type="checkbox" id="confesso"> Réu Confesso (-10%)</label>
+
+    <label>Delação Premiada:
+      <select id="delacao">
+        <option value="0">0%</option>
+        <option value="10">10%</option>
+        <option value="20">20%</option>
+        <option value="30">30%</option>
+        <option value="40">40%</option>
+      </select>
+    </label>
+
+    <label><input type="checkbox" id="servidor"> Crime contra servidor público</label>
+  </section>
+
+  <button onclick="calcular()">Calcular Pena</button>
+
+  <section class="resultado">
+    <p><strong>Pena Final:</strong> <span id="pena">0</span> meses</p>
+    <p><strong>Multa Total:</strong> R$ <span id="multa">0</span></p>
+    <p><strong>Fiança:</strong> <span id="fianca">R$ 0</span></p>
+  </section>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
