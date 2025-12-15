@@ -7,23 +7,29 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>TRIBUNAL DE JUSTIÇA DE OASIS</h1>
-    <h2>1ª Vara Civil e Criminal</h2>
+<div class="container">
+  <h1>TRIBUNAL DE JUSTIÇA DE OASIS</h1>
+  <h2>1ª Vara Civil e Criminal</h2>
 
-    <h3>Artigos</h3>
-    <div id="artigos" class="artigos"></div>
+  <h3>Artigos</h3>
+  <div id="artigos" class="artigos"></div>
 
-    <button onclick="calcular()">Calcular Pena</button>
+  <h3>Atenuantes</h3>
+  <label><input type="checkbox" id="primario"> Réu Primário</label>
+  <label><input type="checkbox" id="confissao"> Confissão Espontânea</label>
+  <label><input type="checkbox" id="colaboracao"> Colaboração com a Justiça</label>
+  <label><input type="checkbox" id="bons"> Bons Antecedentes</label>
+  <label><input type="checkbox" id="servidor"> Servidor Público</label>
 
-    <div class="resultado">
-      <p><strong>Pena (meses):</strong> <span id="pena">0</span></p>
-      <p><strong>Multa:</strong> R$ <span id="multa">0</span></p>
-      <p><strong>Fiança:</strong> <span id="fianca">0</span></p>
-    </div>
+  <button onclick="calcular()">Calcular Pena</button>
+
+  <div class="resultado">
+    <p><strong>Pena (meses):</strong> <span id="pena">0</span></p>
+    <p><strong>Multa:</strong> R$ <span id="multa">0</span></p>
+    <p><strong>Fiança:</strong> <span id="fianca">0</span></p>
   </div>
+</div>
 
-  <!-- SCRIPT NO FINAL -->
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
