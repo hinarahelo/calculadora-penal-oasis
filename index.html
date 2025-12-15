@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora Penal – TJ Oasis</title>
+  <title>Calculadora – TJ Oasis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -22,43 +22,52 @@
 
   <!-- BUSCA -->
   <div class="search-box">
-    <input id="searchInput" placeholder="Pesquisar por número ou nome do artigo">
-    <button id="searchButton">🔍</button>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Pesquisar por número ou nome do artigo">
+    <button id="searchButton">🔍 Pesquisar</button>
   </div>
 
-  <!-- ARTIGOS -->
-  <div id="artigosContainer">
-    <p><em>Nenhum artigo exibido. Utilize a pesquisa.</em></p>
-  </div>
+  <!-- ARTIGOS (ESCONDIDOS POR PADRÃO) -->
+  <div id="artigosContainer" style="display:none"></div>
 
-  <!-- ATENUANTES -->
-  <div class="form-group">
+  <!-- ATENUANTES (ESCONDIDAS POR PADRÃO) -->
+  <div id="atenuantesBox" style="display:none" class="form-group">
     <label>Atenuantes Aplicáveis</label>
 
     <div class="atenuante">
-      <input type="checkbox" value="0.10" data-desc="Réu Primário: ausência de condenações anteriores.">
+      <input type="checkbox" class="atenuanteCheck" value="0.10"
+        data-desc="Réu Primário: inexistência de condenações anteriores (−10%).">
       Réu Primário (−10%)
     </div>
 
     <div class="atenuante">
-      <input type="checkbox" value="0.15" data-desc="Confissão espontânea do crime.">
+      <input type="checkbox" class="atenuanteCheck" value="0.15"
+        data-desc="Confissão espontânea do delito (−15%).">
       Confissão Espontânea (−15%)
     </div>
 
     <div class="atenuante">
-      <input type="checkbox" value="0.10" data-desc="Histórico favorável e bons antecedentes.">
+      <input type="checkbox" class="atenuanteCheck" value="0.10"
+        data-desc="Bons antecedentes comprovados (−10%).">
       Bons Antecedentes (−10%)
     </div>
 
     <div class="atenuante">
-      <input type="checkbox" value="0.20" data-desc="Colaboração efetiva com a Justiça.">
+      <input type="checkbox" class="atenuanteCheck" value="0.20"
+        data-desc="Colaboração efetiva com a Justiça (−20%).">
       Colaboração com a Justiça (−20%)
     </div>
 
-    <div id="descricaoAtenuante"></div>
+    <div id="descricaoAtenuantes" style="margin-top:10px;font-weight:600;">
+      Nenhuma atenuante selecionada.
+    </div>
   </div>
 
-  <button class="calculate-btn" onclick="calcular()">Calcular Pena</button>
+  <button class="calculate-btn" onclick="calcular()" style="display:none" id="btnCalcular">
+    Calcular Pena
+  </button>
 
   <div id="resultado" class="result"></div>
 
