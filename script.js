@@ -1,21 +1,21 @@
 const artigos = [
 {numero:1,nome:"Direção Perigosa",descricao:"Manobras perigosas.",pena:15,multa:2000,fianca:1500},
-{numero:2,nome:"Homicídio Culposo",descricao:"Morte sem intenção.",pena:30,multa:6000,fianca:0},
-{numero:3,nome:"Homicídio Doloso",descricao:"Matar intencionalmente.",pena:40,multa:12000,fianca:0},
+{numero:2,nome:"Homicídio Culposo",descricao:"Morte sem intenção.",pena:30,multa:6000,fianca:null},
+{numero:3,nome:"Homicídio Doloso",descricao:"Matar intencionalmente.",pena:40,multa:12000,fianca:null},
 {numero:4,nome:"Furto",descricao:"Subtração sem violência.",pena:30,multa:4000,fianca:8500},
 {numero:5,nome:"Roubo",descricao:"Subtração com violência.",pena:30,multa:3500,fianca:8500},
-{numero:6,nome:"Latrocínio",descricao:"Roubo seguido de morte.",pena:45,multa:8000,fianca:0},
+{numero:6,nome:"Latrocínio",descricao:"Roubo seguido de morte.",pena:45,multa:8000,fianca:null},
 {numero:7,nome:"Lesão Corporal",descricao:"Agressão.",pena:20,multa:4000,fianca:7000},
-{numero:8,nome:"Genocídio",descricao:"Crime contra grupo.",pena:70,multa:7000,fianca:0},
-{numero:9,nome:"Terrorismo",descricao:"Ato terrorista.",pena:70,multa:10000,fianca:15000},
-{numero:10,nome:"Sequestro",descricao:"Privar liberdade.",pena:50,multa:5000,fianca:0},
+{numero:8,nome:"Genocídio",descricao:"Crime contra grupo.",pena:70,multa:7000,fianca:null},
+{numero:9,nome:"Terrorismo",descricao:"Ato terrorista.",pena:70,multa:10000,fianca:null},
+{numero:10,nome:"Sequestro",descricao:"Privar liberdade.",pena:50,multa:5000,fianca:null},
 {numero:11,nome:"Cárcere Privado",descricao:"Restrição de liberdade.",pena:35,multa:3000,fianca:6000},
 {numero:12,nome:"Omissão de Socorro",descricao:"Não prestar ajuda.",pena:30,multa:8000,fianca:3000},
-{numero:13,nome:"Maus Tratos",descricao:"Expor a perigo.",pena:40,multa:5000,fianca:0},
+{numero:13,nome:"Maus Tratos",descricao:"Expor a perigo.",pena:40,multa:5000,fianca:null},
 {numero:14,nome:"Difamação",descricao:"Ofensa à reputação.",pena:30,multa:2500,fianca:8500},
 {numero:15,nome:"Injúria",descricao:"Ofensa à honra.",pena:20,multa:2500,fianca:8500},
 {numero:16,nome:"Calúnia",descricao:"Acusação falsa.",pena:20,multa:2500,fianca:8500},
-{numero:17,nome:"Atentado Violento ao Pudor",descricao:"Crime sexual.",pena:250,multa:0,fianca:0},
+{numero:17,nome:"Atentado Violento ao Pudor",descricao:"Crime sexual.",pena:250,multa:0,fianca:null},
 {numero:18,nome:"Ameaça",descricao:"Prometer mal.",pena:30,multa:2000,fianca:10000},
 {numero:19,nome:"Uso Indevido de Imagem",descricao:"Uso sem autorização.",pena:0,multa:3500,fianca:7000},
 {numero:20,nome:"Abandono de Incapaz",descricao:"Abandono.",pena:30,multa:8000,fianca:7000},
@@ -40,10 +40,10 @@ const artigos = [
 {numero:40,nome:"Corrida Ilegal",descricao:"Corrida criminosa.",pena:30,multa:5000,fianca:2250},
 {numero:41,nome:"Invasão Órgãos Públicos",descricao:"Invadir repartição.",pena:20,multa:3000,fianca:2000},
 {numero:42,nome:"Invasão de Domicílio",descricao:"Entrar sem permissão.",pena:20,multa:3500,fianca:2500},
-{numero:43,nome:"Veículo Danificado",descricao:"Veículo avariado.",pena:0,multa:5000,fianca:0},
-{numero:44,nome:"Legítima Defesa",descricao:"Exclusão de crime.",pena:0,multa:0,fianca:0},
+{numero:43,nome:"Veículo Danificado",descricao:"Veículo avariado.",pena:0,multa:5000,fianca:null},
+{numero:44,nome:"Legítima Defesa",descricao:"Exclusão de crime.",pena:0,multa:0,fianca:null},
 {numero:45,nome:"Resistência à Prisão",descricao:"Opor-se à prisão.",pena:20,multa:2500,fianca:7000},
-{numero:46,nome:"Perturbação do Sossego",descricao:"Barulho público.",pena:0,multa:7500,fianca:0},
+{numero:46,nome:"Perturbação do Sossego",descricao:"Barulho público.",pena:0,multa:7500,fianca:null},
 {numero:47,nome:"Prevaricação",descricao:"Interesse pessoal.",pena:30,multa:4000,fianca:2000},
 {numero:48,nome:"Desmanche",descricao:"Desmanche ilegal.",pena:30,multa:2000,fianca:4500},
 {numero:49,nome:"Ocultação de Provas",descricao:"Destruir provas.",pena:20,multa:1500,fianca:3000},
@@ -79,10 +79,12 @@ document.getElementById("searchButton").onclick = () => {
       <div class="article">
         <strong>Art. ${a.numero} – ${a.nome}</strong>
         <p>${a.descricao}</p>
-        <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | Fiança: ${a.fianca || "Inafiançável"}</p>
+        <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | Fiança: ${a.fianca === null ? "Inafiançável" : "R$ " + a.fianca}</p>
         <label>
           <input type="checkbox" class="artigo"
-            data-pena="${a.pena}" data-multa="${a.multa}" data-fianca="${a.fianca}">
+            data-pena="${a.pena}"
+            data-multa="${a.multa}"
+            data-fianca="${a.fianca}">
           Selecionar
         </label>
       </div>`;
@@ -90,12 +92,15 @@ document.getElementById("searchButton").onclick = () => {
 };
 
 function calcular() {
-  let pena = 0, multa = 0, fianca = 0;
+  let pena = 0, multa = 0;
+  let fiancaTotal = 0;
+  let inafiancavel = false;
 
   document.querySelectorAll(".artigo:checked").forEach(a => {
     pena += Number(a.dataset.pena);
     multa += Number(a.dataset.multa);
-    fianca += Number(a.dataset.fianca);
+    if (a.dataset.fianca === "null") inafiancavel = true;
+    else fiancaTotal += Number(a.dataset.fianca);
   });
 
   let perc = 0;
@@ -118,6 +123,15 @@ function calcular() {
     Redução: ${red} meses<br>
     Pena Final: ${pena - red} meses<br>
     Multa: R$ ${multa.toLocaleString("pt-BR")}<br>
-    Fiança: R$ ${fianca.toLocaleString("pt-BR")}
+    Fiança: ${inafiancavel ? "Inafiançável" : "R$ " + fiancaTotal.toLocaleString("pt-BR")}
   `;
+}
+
+function limpar() {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("artigosContainer").innerHTML = "";
+  document.getElementById("artigosContainer").style.display = "none";
+  document.getElementById("resultado").innerHTML = "";
+  document.getElementById("descricaoAtenuantes").innerText = "Nenhuma atenuante selecionada.";
+  document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
 }
