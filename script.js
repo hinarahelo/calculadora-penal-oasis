@@ -82,6 +82,8 @@ document.getElementById("searchButton").onclick = () => {
         <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | Fiança: ${a.fianca === null ? "Inafiançável" : "R$ " + a.fianca}</p>
         <label>
           <input type="checkbox" class="artigo"
+            data-numero="${a.numero}"
+            data-nome="${a.nome}"
             data-pena="${a.pena}"
             data-multa="${a.multa}"
             data-fianca="${a.fianca}">
@@ -92,13 +94,18 @@ document.getElementById("searchButton").onclick = () => {
 };
 
 function calcular() {
-  let pena = 0, multa = 0;
-  let fiancaTotal = 0;
+  let pena = 0, multa = 0, fiancaTotal = 0;
   let inafiancavel = false;
+  let artigosSelecionados = [];
 
   document.querySelectorAll(".artigo:checked").forEach(a => {
     pena += Number(a.dataset.pena);
     multa += Number(a.dataset.multa);
+
+    artigosSelecionados.push(
+      `Art. ${a.dataset.numero} – ${a.dataset.nome}`
+    );
+
     if (a.dataset.fianca === "null") inafiancavel = true;
     else fiancaTotal += Number(a.dataset.fianca);
   });
@@ -113,15 +120,18 @@ function calcular() {
 
   if (perc > 0.4) perc = 0.4;
 
-  const red = Math.round(pena * perc);
+  const reducao = Math.round(pena * perc);
 
   document.getElementById("descricaoAtenuantes").innerHTML =
     desc.length ? desc.join("<br>") : "Nenhuma atenuante selecionada.";
 
   document.getElementById("resultado").innerHTML = `
+    <strong>Artigos Aplicados:</strong><br>
+    ${artigosSelecionados.length ? artigosSelecionados.join("<br>") : "Nenhum artigo selecionado."}
+    <hr>
     Atenuantes: ${perc * 100}%<br>
-    Redução: ${red} meses<br>
-    Pena Final: ${pena - red} meses<br>
+    Redução: ${reducao} meses<br>
+    Pena Final: ${pena - reducao} meses<br>
     Multa: R$ ${multa.toLocaleString("pt-BR")}<br>
     Fiança: ${inafiancavel ? "Inafiançável" : "R$ " + fiancaTotal.toLocaleString("pt-BR")}
   `;
@@ -129,8 +139,8 @@ function calcular() {
 
 function limpar() {
   document.getElementById("searchInput").value = "";
-  document.getElementById("artigosContainer").innerHTML = "";
-  document.getElementById("artigosContainer").style.display = "none";
+  artigosContainer.innerHTML = "";
+  artigosContainer.style.display = "none";
   document.getElementById("resultado").innerHTML = "";
   document.getElementById("descricaoAtenuantes").innerText = "Nenhuma atenuante selecionada.";
   document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
