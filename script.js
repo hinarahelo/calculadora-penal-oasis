@@ -1,5 +1,5 @@
 // ===============================
-// ARTIGOS (1–65)
+// BASE DE ARTIGOS
 // ===============================
 const artigos = [];
 for (let i = 1; i <= 65; i++) {
@@ -13,6 +13,8 @@ for (let i = 1; i <= 65; i++) {
 }
 
 const artigosContainer = document.getElementById("artigosContainer");
+const atenuantesBox = document.getElementById("atenuantesBox");
+const btnCalcular = document.getElementById("btnCalcular");
 
 // ===============================
 // PESQUISA
@@ -20,10 +22,11 @@ const artigosContainer = document.getElementById("artigosContainer");
 document.getElementById("searchButton").addEventListener("click", () => {
   const termo = document.getElementById("searchInput").value.trim().toLowerCase();
 
-  if (!termo) {
-    artigosContainer.innerHTML = "<em>Digite um artigo para pesquisar.</em>";
-    return;
-  }
+  artigosContainer.style.display = "none";
+  atenuantesBox.style.display = "none";
+  btnCalcular.style.display = "none";
+
+  if (!termo) return;
 
   const encontrados = artigos.filter(a =>
     a.numero.toString() === termo ||
@@ -33,11 +36,15 @@ document.getElementById("searchButton").addEventListener("click", () => {
   renderArtigos(encontrados);
 });
 
+// ===============================
+// RENDERIZA ARTIGOS (SÓ APÓS BUSCA)
+// ===============================
 function renderArtigos(lista) {
   artigosContainer.innerHTML = "";
 
   if (lista.length === 0) {
     artigosContainer.innerHTML = "<strong>Nenhum artigo encontrado.</strong>";
+    artigosContainer.style.display = "block";
     return;
   }
 
@@ -46,7 +53,7 @@ function renderArtigos(lista) {
       <div class="article">
         <strong>Art. ${a.numero} – ${a.nome}</strong>
         <p>
-          Pena: ${a.pena} meses<br>
+          Pena base: ${a.pena} meses<br>
           Multa: R$ ${a.multa}<br>
           Fiança: R$ ${a.fianca}
         </p>
@@ -60,25 +67,33 @@ function renderArtigos(lista) {
       </div>
     `;
   });
+
+  artigosContainer.style.display = "block";
+  atenuantesBox.style.display = "block";
+  btnCalcular.style.display = "block";
+
+  ativarAtenuantes();
 }
 
 // ===============================
-// ATENUANTES (EXPLICAÇÃO)
+// ATENUANTES (FUNCIONAIS)
 // ===============================
-document.querySelectorAll(".atenuante input").forEach(el => {
-  el.addEventListener("change", atualizarDescricao);
-});
+function ativarAtenuantes() {
+  document.querySelectorAll(".atenuanteCheck").forEach(el => {
+    el.addEventListener("change", atualizarDescricaoAtenuantes);
+  });
+}
 
-function atualizarDescricao() {
-  const box = document.getElementById("descricaoAtenuante");
+function atualizarDescricaoAtenuantes() {
+  const box = document.getElementById("descricaoAtenuantes");
   box.innerHTML = "";
 
-  document.querySelectorAll(".atenuante input:checked").forEach(a => {
+  document.querySelectorAll(".atenuanteCheck:checked").forEach(a => {
     box.innerHTML += `• ${a.dataset.desc}<br>`;
   });
 
   if (box.innerHTML === "") {
-    box.innerHTML = "Nenhuma atenuante aplicada.";
+    box.innerHTML = "Nenhuma atenuante selecionada.";
   }
 }
 
@@ -94,22 +109,22 @@ function calcular() {
     fianca += Number(a.dataset.fianca);
   });
 
-  let percentualTotal = 0;
-  document.querySelectorAll(".atenuante input:checked").forEach(a => {
-    percentualTotal += Number(a.value);
+  let percentual = 0;
+  document.querySelectorAll(".atenuanteCheck:checked").forEach(a => {
+    percentual += Number(a.value);
   });
 
-  if (percentualTotal > 0.5) percentualTotal = 0.5; // trava 50%
+  if (percentual > 0.5) percentual = 0.5; // limite legal
 
-  const reducao = pena * percentualTotal;
-  const final = pena - reducao;
+  const reducao = pena * percentual;
+  const penaFinal = pena - reducao;
 
   document.getElementById("resultado").innerHTML = `
     Pena Base: <strong>${pena} meses</strong><br>
-    Atenuantes: <strong>${Math.round(percentualTotal * 100)}%</strong><br>
+    Atenuantes Aplicadas: <strong>${Math.round(percentual * 100)}%</strong><br>
     Redução: <strong>${Math.round(reducao)} meses</strong><br>
     <hr>
-    Pena Final: <strong>${Math.round(final)} meses</strong><br>
+    Pena Final: <strong>${Math.round(penaFinal)} meses</strong><br>
     Multa Total: <strong>R$ ${multa.toLocaleString()}</strong><br>
     Fiança Total: <strong>R$ ${fianca.toLocaleString()}</strong>
   `;
