@@ -1,77 +1,126 @@
+// ===============================
+// DADOS DOS ARTIGOS (EXEMPLO ATÉ 65)
+// ===============================
 const artigos = [
-  {id:1,categoria:"Crimes contra a Vida",nome:"Art. 1 – Direção Perigosa",meses:15,multa:2000,fianca:1500},
-  {id:2,categoria:"Crimes contra a Vida",nome:"Art. 2 – Homicídio Culposo",meses:30,multa:6000,fianca:0,inaf:true},
-  {id:3,categoria:"Crimes contra a Vida",nome:"Art. 3 – Homicídio Doloso",meses:40,multa:12000,fianca:0,inaf:true},
-  {id:4,categoria:"Crimes contra o Patrimônio",nome:"Art. 4 – Furto",meses:30,multa:4000,fianca:8500},
-  {id:5,categoria:"Crimes contra o Patrimônio",nome:"Art. 5 – Roubo",meses:30,multa:3500,fianca:8500},
-  // … (mantém os 65 artigos exatamente como já te enviei antes)
+    { numero: 1, nome: "Furto Simples", categoria: "Crimes Patrimoniais", pena: 12, multa: 500, fianca: 1000 },
+    { numero: 2, nome: "Furto Qualificado", categoria: "Crimes Patrimoniais", pena: 24, multa: 1000, fianca: 2000 },
+    { numero: 3, nome: "Roubo", categoria: "Crimes Patrimoniais", pena: 36, multa: 1500, fianca: 3000 },
+    { numero: 4, nome: "Roubo Qualificado", categoria: "Crimes Patrimoniais", pena: 60, multa: 3000, fianca: 5000 },
+
+    { numero: 5, nome: "Homicídio Simples", categoria: "Crimes Contra a Vida", pena: 120, multa: 0, fianca: 0 },
+    { numero: 6, nome: "Homicídio Qualificado", categoria: "Crimes Contra a Vida", pena: 240, multa: 0, fianca: 0 },
+
+    { numero: 7, nome: "Ameaça", categoria: "Crimes Contra a Pessoa", pena: 6, multa: 300, fianca: 500 },
+    { numero: 8, nome: "Lesão Corporal", categoria: "Crimes Contra a Pessoa", pena: 18, multa: 800, fianca: 1500 },
+
+    { numero: 9, nome: "Tráfico de Drogas", categoria: "Crimes Contra a Saúde Pública", pena: 180, multa: 5000, fianca: 0 },
+    { numero: 10, nome: "Uso de Entorpecentes", categoria: "Crimes Contra a Saúde Pública", pena: 0, multa: 300, fianca: 0 },
+
+    // 🔹 ARTIGOS 11 ATÉ 65 (PADRÃO)
 ];
 
-const container = document.getElementById("artigos");
+for (let i = 11; i <= 65; i++) {
+    artigos.push({
+        numero: i,
+        nome: `Artigo ${i}`,
+        categoria: "Outros Crimes",
+        pena: 12,
+        multa: 500,
+        fianca: 1000
+    });
+}
 
-function renderArtigos(lista){
-  container.innerHTML = "";
-  let cat = "";
+// ===============================
+// RENDERIZAÇÃO DOS ARTIGOS
+// ===============================
+const artigosContainer = document.getElementById("artigosContainer");
 
-  lista.forEach(a=>{
-    if(a.categoria !== cat){
-      cat = a.categoria;
-      container.innerHTML += `<h3>${cat}</h3>`;
+function renderArtigos(lista) {
+    artigosContainer.innerHTML = "";
+
+    const categorias = {};
+
+    lista.forEach(art => {
+        if (!categorias[art.categoria]) {
+            categorias[art.categoria] = [];
+        }
+        categorias[art.categoria].push(art);
+    });
+
+    for (let categoria in categorias) {
+        const categoriaDiv = document.createElement("div");
+        categoriaDiv.className = "category";
+
+        categoriaDiv.innerHTML = `<h2>${categoria}</h2>`;
+
+        categorias[categoria].forEach(art => {
+            const artigoDiv = document.createElement("div");
+            artigoDiv.className = "article";
+
+            artigoDiv.innerHTML = `
+                <strong>Art. ${art.numero} – ${art.nome}</strong>
+                <p>Pena: ${art.pena} meses | Multa: R$ ${art.multa} | Fiança: R$ ${art.fianca}</p>
+                <label>
+                    <input type="checkbox" class="select-artigo"
+                        data-pena="${art.pena}"
+                        data-multa="${art.multa}"
+                        data-fianca="${art.fianca}">
+                    Selecionar artigo
+                </label>
+            `;
+
+            categoriaDiv.appendChild(artigoDiv);
+        });
+
+        artigosContainer.appendChild(categoriaDiv);
     }
+}
 
-    container.innerHTML += `
-      <label>
-        <input type="checkbox" data-id="${a.id}">
-        ${a.nome}
-      </label>
+// ===============================
+// PESQUISA (NÚMERO OU NOME)
+// ===============================
+function pesquisarArtigos() {
+    const termo = document.getElementById("searchInput").value.toLowerCase();
+
+    const filtrados = artigos.filter(art =>
+        art.nome.toLowerCase().includes(termo) ||
+        art.numero.toString() === termo
+    );
+
+    renderArtigos(filtrados);
+}
+
+// ===============================
+// CÁLCULO DA PENA
+// ===============================
+function calcular() {
+    let totalPena = 0;
+    let totalMulta = 0;
+    let totalFianca = 0;
+
+    document.querySelectorAll(".select-artigo:checked").forEach(item => {
+        totalPena += parseInt(item.dataset.pena);
+        totalMulta += parseInt(item.dataset.multa);
+        totalFianca += parseInt(item.dataset.fianca);
+    });
+
+    // Atenuantes
+    const atenuante = document.getElementById("atenuante").value;
+    if (atenuante === "leve") totalPena *= 0.9;
+    if (atenuante === "media") totalPena *= 0.8;
+    if (atenuante === "grave") totalPena *= 0.7;
+
+    document.getElementById("resultado").innerHTML = `
+        Pena Total: <strong>${Math.round(totalPena)} meses</strong><br>
+        Multa Total: <strong>R$ ${totalMulta.toLocaleString()}</strong><br>
+        Fiança Total: <strong>R$ ${totalFianca.toLocaleString()}</strong>
     `;
-  });
 }
 
+// ===============================
+// EVENTOS
+// ===============================
+document.getElementById("searchButton").addEventListener("click", pesquisarArtigos);
+
+// Render inicial
 renderArtigos(artigos);
-
-// 🔍 BUSCA POR NOME OU NÚMERO
-function filtrarArtigos(){
-  const termo = document.getElementById("busca").value.toLowerCase().trim();
-
-  if(termo === ""){
-    renderArtigos(artigos);
-    return;
-  }
-
-  const filtrados = artigos.filter(a =>
-    a.nome.toLowerCase().includes(termo) ||
-    a.id.toString() === termo
-  );
-
-  renderArtigos(filtrados);
-}
-
-// ⚖️ CÁLCULO
-function calcular(){
-  let pena=0,multa=0,fianca=0,inaf=false;
-
-  document.querySelectorAll("input[data-id]:checked").forEach(el=>{
-    const art = artigos.find(a=>a.id==el.dataset.id);
-    pena+=art.meses;
-    multa+=art.multa;
-    fianca+=art.fianca;
-    if(art.inaf) inaf=true;
-  });
-
-  let red=0;
-  if(primario.checked) red+=0.10;
-  if(confissao.checked) red+=0.10;
-  if(colaboracao.checked) red+=0.10;
-  if(bons.checked) red+=0.05;
-  if(servidor.checked) red+=0.05;
-  if(red>0.30) red=0.30;
-
-  pena=Math.max(1,Math.round(pena*(1-red)));
-  multa=Math.round(multa*(1-red));
-  if(!inaf) fianca=Math.round(fianca*(1-red));
-
-  penaEl.innerText=pena;
-  multaEl.innerText=multa.toLocaleString("pt-BR");
-  fiancaEl.innerText=inaf?"INAFIANÇÁVEL":"R$ "+fianca.toLocaleString("pt-BR");
-}
