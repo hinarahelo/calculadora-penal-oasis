@@ -96,6 +96,3 @@ function calcular() {
   document.getElementById("multa").innerText = multa.toLocaleString("pt-BR");
   document.getElementById("fianca").innerText = inaf ? "INAFIANÇÁVEL" : "R$ " + fianca.toLocaleString("pt-BR");
 }
-
-
-
