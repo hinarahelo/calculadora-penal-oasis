@@ -13,40 +13,55 @@
 </head>
 <body>
 
-<div class="container">
-  <h1>TRIBUNAL DE JUSTIÇA DE OASIS</h1>
-  <h2>1ª Vara Civil e Criminal</h2>
-
-  <!-- BUSCA -->
-  <input
-    type="text"
-    id="busca"
-    placeholder="Buscar por artigo ou nome..."
-    onkeyup="filtrarArtigos()"
-    style="width:100%; padding:10px; margin-bottom:15px;"
-  >
-
-  <!-- ARTIGOS -->
-  <div id="artigos"></div>
-
-  <!-- ATENUANTES -->
-  <h3>Atenuantes</h3>
-  <label><input type="checkbox" id="primario"> Réu Primário</label>
-  <label><input type="checkbox" id="confissao"> Confissão Espontânea</label>
-  <label><input type="checkbox" id="colaboracao"> Colaboração com a Justiça</label>
-  <label><input type="checkbox" id="bons"> Bons Antecedentes</label>
-  <label><input type="checkbox" id="servidor"> Servidor Público</label>
-
-  <button onclick="calcular()">Calcular Pena</button>
-
-  <!-- RESULTADO -->
-  <div class="resultado">
-    <p><strong>Pena Total (meses):</strong> <span id="pena">0</span></p>
-    <p><strong>Multa Total:</strong> R$ <span id="multa">0</span></p>
-    <p><strong>Fiança:</strong> <span id="fianca">0</span></p>
+  <!-- FAIXA SUPERIOR COM BRASÃO -->
+  <div class="header">
+    <img src="logo-oasis.png" alt="Tribunal de Justiça de Oasis">
+    <h1>TRIBUNAL DE JUSTIÇA DE OASIS</h1>
+    <h2>1ª Vara Civil e Criminal</h2>
   </div>
-</div>
 
-<script src="script.js"></script>
+  <!-- DOCUMENTO -->
+  <div class="container">
+
+    <!-- BUSCA -->
+    <h3>Artigos Penais</h3>
+    <input 
+      type="text"
+      id="busca"
+      placeholder="Pesquisar por número ou nome do artigo"
+      oninput="filtrarArtigos()"
+    >
+
+    <!-- LISTA DE ARTIGOS -->
+    <div id="artigos"></div>
+
+    <!-- ATENUANTES -->
+    <h3>Atenuantes</h3>
+
+    <label><input type="checkbox" id="primario"> Réu Primário</label>
+    <label><input type="checkbox" id="confissao"> Confissão Espontânea</label>
+    <label><input type="checkbox" id="colaboracao"> Colaboração com a Justiça</label>
+    <label><input type="checkbox" id="bons"> Bons Antecedentes</label>
+    <label><input type="checkbox" id="servidor"> Servidor Público</label>
+
+    <!-- BOTÃO -->
+    <button onclick="calcular()">Calcular Pena</button>
+
+    <!-- RESULTADO -->
+    <div class="resultado">
+      <p><strong>Pena Total (meses):</strong> <span id="pena">0</span></p>
+      <p><strong>Multa Total:</strong> R$ <span id="multa">0</span></p>
+      <p><strong>Fiança:</strong> <span id="fianca">0</span></p>
+    </div>
+
+  </div>
+
+  <!-- RODAPÉ -->
+  <div class="footer">
+    Documento Oficial – Tribunal de Justiça de Oasis
+  </div>
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
 </body>
 </html>
