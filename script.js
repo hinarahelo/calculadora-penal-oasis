@@ -66,10 +66,36 @@ const artigos = [
   {id:65, nome:"Art. 65 – Assédio", meses:20, multa:1500, fianca:3000}
 ];
 
-// NÃO ALTERE ABAIXO
-const div = document.getElementById("artigos");
+// RENDERIZA OS ARTIGOS
+const lista = document.getElementById("artigos");
 artigos.forEach(a => {
-  div.innerHTML += `<label><input type="checkbox" value="${a.id}"> ${a.nome}</label>`;
+  lista.innerHTML += `
+    <label>
+      <input type="checkbox" data-id="${a.id}">
+      ${a.nome}
+    </label>
+  `;
 });
+
+// FUNÇÃO DO BOTÃO
+function calcular() {
+  let pena = 0;
+  let multa = 0;
+  let fianca = 0;
+  let inaf = false;
+
+  document.querySelectorAll("input[type=checkbox][data-id]:checked").forEach(el => {
+    const art = artigos.find(a => a.id == el.dataset.id);
+    pena += art.meses;
+    multa += art.multa;
+    fianca += art.fianca;
+    if (art.inaf) inaf = true;
+  });
+
+  document.getElementById("pena").innerText = pena;
+  document.getElementById("multa").innerText = multa.toLocaleString("pt-BR");
+  document.getElementById("fianca").innerText = inaf ? "INAFIANÇÁVEL" : "R$ " + fianca.toLocaleString("pt-BR");
+}
+
 
 
