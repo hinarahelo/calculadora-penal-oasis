@@ -31,26 +31,22 @@
     <label>Atenuantes</label>
 
     <div>
-      <input type="checkbox" class="atenuante" data-percent="0.30"
-        data-desc="Réu primário: redução de 30% da pena total.">
+      <input type="checkbox" class="atenuante" data-percent="0.30" data-desc="Réu primário (30%).">
       Réu Primário (−30%)
     </div>
 
     <div>
-      <input type="checkbox" class="atenuante" data-percent="0.10"
-        data-desc="Réu confesso: redução de 10% da pena total.">
+      <input type="checkbox" class="atenuante" data-percent="0.10" data-desc="Confissão espontânea (10%).">
       Confissão Espontânea (−10%)
     </div>
 
     <div>
-      <input type="checkbox" class="atenuante" data-percent="0.10"
-        data-desc="Bom comportamento: redução de 10% da pena total.">
+      <input type="checkbox" class="atenuante" data-percent="0.10" data-desc="Bom comportamento (10%).">
       Bom Comportamento (−10%)
     </div>
 
     <div>
-      <input type="checkbox" class="atenuante" data-percent="0.20"
-        data-desc="Advogado constituído: redução de 20% da pena total.">
+      <input type="checkbox" class="atenuante" data-percent="0.20" data-desc="Advogado constituído (20%).">
       Advogado Constituído (−20%)
     </div>
 
@@ -58,6 +54,7 @@
   </div>
 
   <button class="calculate-btn" onclick="calcular()">Calcular Pena</button>
+  <button class="calculate-btn" onclick="limpar()">Limpar Calculadora</button>
 
   <div id="resultado" class="result"></div>
 
