@@ -1,73 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Calculadora Penal – Tribunal de Justiça de Oasis</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Fonte Montserrat -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Calculadora Penal – TJ Oasis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- MARCA D'ÁGUA -->
-    <div class="watermark"></div>
+  <!-- MARCA D’ÁGUA -->
+  <div class="watermark"></div>
 
-    <!-- FAIXA SUPERIOR -->
-    <header class="header">
-        <img src="logo-oasis.png" alt="Brasão Tribunal de Justiça de Oasis">
-        <h1>
-            TRIBUNAL DE JUSTIÇA DE OASIS<br>
-            1º VARA CIVIL E CRIMINAL
-        </h1>
-    </header>
+  <!-- CABEÇALHO -->
+  <header class="header">
+    <img src="logo-oasis.png" alt="Brasão TJ Oasis">
+    <h1>
+      TRIBUNAL DE JUSTIÇA DE OASIS<br>
+      1ª VARA CIVIL E CRIMINAL
+    </h1>
+  </header>
 
-    <!-- CONTEÚDO -->
-    <main class="container">
+  <!-- CONTEÚDO -->
+  <main class="container">
 
-        <!-- BUSCA -->
-        <div class="search-box">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Pesquisar por número ou nome do artigo">
-            <button id="searchButton">🔍</button>
-        </div>
+    <!-- BUSCA -->
+    <div class="search-box">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Pesquisar por número ou nome do artigo">
+      <button id="searchButton">🔍</button>
+    </div>
 
-        <!-- LISTAGEM DE ARTIGOS -->
-        <div id="artigosContainer"></div>
+    <!-- RESULTADO DA BUSCA -->
+    <div id="artigosContainer">
+      <p><em>Utilize a pesquisa para localizar um artigo.</em></p>
+    </div>
 
-        <!-- ATENUANTES -->
-        <div class="form-group">
-            <label for="atenuante">Atenuantes</label>
-            <select id="atenuante">
-                <option value="">Nenhuma</option>
-                <option value="leve">Atenuante Leve (−10%)</option>
-                <option value="media">Atenuante Média (−20%)</option>
-                <option value="grave">Atenuante Grave (−30%)</option>
-            </select>
-        </div>
+    <!-- ATENUANTES -->
+    <div class="form-group">
+      <label for="atenuante">Atenuantes</label>
+      <select id="atenuante">
+        <option value="">Nenhuma</option>
+        <option value="leve">Atenuante Leve</option>
+        <option value="media">Atenuante Média</option>
+        <option value="grave">Atenuante Grave</option>
+      </select>
 
-        <!-- BOTÃO CALCULAR -->
-        <button class="calculate-btn" onclick="calcular()">
-            Calcular Pena
-        </button>
+      <p id="descricaoAtenuante" style="margin-top:8px;font-weight:600;">
+        Nenhuma atenuante aplicada.
+      </p>
+    </div>
 
-        <!-- RESULTADO -->
-        <div id="resultado" class="result"></div>
+    <!-- CALCULAR -->
+    <button class="calculate-btn" onclick="calcular()">
+      Calcular Pena
+    </button>
 
-    </main>
+    <!-- RESULTADO FINAL -->
+    <div id="resultado" class="result"></div>
 
-    <!-- RODAPÉ -->
-    <footer class="footer">
-        Documento Oficial – TJ Oasis
-    </footer>
+  </main>
 
-    <!-- SCRIPT -->
-    <script src="script.js"></script>
+  <!-- RODAPÉ -->
+  <footer class="footer">
+    Documento Oficial – Tribunal de Justiça de Oasis
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
