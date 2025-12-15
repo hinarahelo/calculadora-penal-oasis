@@ -1,5 +1,5 @@
 // ===============================
-// ARTIGOS (1 A 65)
+// BASE DE ARTIGOS (1–65)
 // ===============================
 const artigos = [];
 
@@ -19,8 +19,11 @@ for (let i = 1; i <= 65; i++) {
 const artigosContainer = document.getElementById("artigosContainer");
 const searchInput = document.getElementById("searchInput");
 
+// ⚠️ IMPORTANTE: NÃO renderiza artigos ao carregar
 // ===============================
-// RENDERIZAÇÃO
+
+// ===============================
+// RENDERIZAÇÃO (SÓ APÓS PESQUISA)
 // ===============================
 function renderArtigos(lista) {
   artigosContainer.innerHTML = "";
@@ -55,13 +58,14 @@ function renderArtigos(lista) {
 }
 
 // ===============================
-// PESQUISA
+// PESQUISA (OBRIGATÓRIA)
 // ===============================
 function pesquisarArtigos() {
   const termo = searchInput.value.trim().toLowerCase();
 
   if (!termo) {
-    artigosContainer.innerHTML = "<p><em>Digite o número ou nome do artigo.</em></p>";
+    artigosContainer.innerHTML =
+      "<p><em>Digite o número ou nome do artigo para pesquisar.</em></p>";
     return;
   }
 
@@ -74,23 +78,36 @@ function pesquisarArtigos() {
 }
 
 // ===============================
-// ATENUANTES (DESCRIÇÃO)
+// ATENUANTES (EXPLICAÇÃO COMPLETA)
 // ===============================
 function atualizarDescricaoAtenuante() {
   const tipo = document.getElementById("atenuante").value;
   const desc = document.getElementById("descricaoAtenuante");
 
-  if (tipo === "leve")
-    desc.innerHTML = "Atenuante Leve: reduz a pena total em <strong>10%</strong>.";
+  switch (tipo) {
+    case "primario":
+      desc.innerHTML =
+        "Réu Primário: o acusado não possui condenações anteriores. <strong>Redução de 10%</strong> da pena total.";
+      break;
 
-  else if (tipo === "media")
-    desc.innerHTML = "Atenuante Média: reduz a pena total em <strong>20%</strong>.";
+    case "confissao":
+      desc.innerHTML =
+        "Confissão Espontânea: o réu admite o crime voluntariamente. <strong>Redução de 15%</strong> da pena.";
+      break;
 
-  else if (tipo === "grave")
-    desc.innerHTML = "Atenuante Grave: reduz a pena total em <strong>30%</strong>.";
+    case "bons":
+      desc.innerHTML =
+        "Bons Antecedentes: histórico criminal favorável. <strong>Redução de 10%</strong> da pena.";
+      break;
 
-  else
-    desc.innerHTML = "Nenhuma atenuante aplicada.";
+    case "colaboracao":
+      desc.innerHTML =
+        "Colaboração com a Justiça: auxílio na elucidação do crime. <strong>Redução de 20%</strong> da pena.";
+      break;
+
+    default:
+      desc.innerHTML = "Nenhuma atenuante aplicada.";
+  }
 }
 
 // ===============================
@@ -106,18 +123,19 @@ function calcular() {
   });
 
   let percentual = 0;
-  const atenuante = document.getElementById("atenuante").value;
+  const tipo = document.getElementById("atenuante").value;
 
-  if (atenuante === "leve") percentual = 0.10;
-  if (atenuante === "media") percentual = 0.20;
-  if (atenuante === "grave") percentual = 0.30;
+  if (tipo === "primario") percentual = 0.10;
+  if (tipo === "confissao") percentual = 0.15;
+  if (tipo === "bons") percentual = 0.10;
+  if (tipo === "colaboracao") percentual = 0.20;
 
   const reducao = pena * percentual;
   const penaFinal = pena - reducao;
 
   document.getElementById("resultado").innerHTML = `
     Pena Base: <strong>${pena} meses</strong><br>
-    Redução: <strong>${Math.round(reducao)} meses</strong><br>
+    Atenuante aplicada: <strong>${Math.round(reducao)} meses</strong><br>
     <hr>
     Pena Final: <strong>${Math.round(penaFinal)} meses</strong><br>
     Multa Total: <strong>R$ ${multa.toLocaleString()}</strong><br>
@@ -128,5 +146,8 @@ function calcular() {
 // ===============================
 // EVENTOS
 // ===============================
-document.getElementById("searchButton").addEventListener("click", pesquisarArtigos);
-document.getElementById("atenuante").addEventListener("change", atualizarDescricaoAtenuante);
+document.getElementById("searchButton")
+  .addEventListener("click", pesquisarArtigos);
+
+document.getElementById("atenuante")
+  .addEventListener("change", atualizarDescricaoAtenuante);
