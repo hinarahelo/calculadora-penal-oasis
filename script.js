@@ -1,30 +1,38 @@
 // ===============================
-// BASE DE ARTIGOS
+// ARTIGOS (EXEMPLO – ESTRUTURA CORRETA)
 // ===============================
-const artigos = [];
-for (let i = 1; i <= 65; i++) {
-  artigos.push({
-    numero: i,
-    nome: `Artigo ${i}`,
+const artigos = [
+  {
+    numero: 1,
+    nome: "Furto Simples",
+    descricao: "Subtrair coisa alheia móvel sem violência.",
     pena: 12,
     multa: 500,
     fianca: 1000
-  });
-}
+  },
+  {
+    numero: 2,
+    nome: "Roubo",
+    descricao: "Subtrair coisa alheia móvel mediante violência.",
+    pena: 24,
+    multa: 1500,
+    fianca: 3000
+  }
+  // 👉 aqui entram os 65 artigos reais do seu documento
+];
 
+// ===============================
+// ELEMENTOS
+// ===============================
 const artigosContainer = document.getElementById("artigosContainer");
-const atenuantesBox = document.getElementById("atenuantesBox");
-const btnCalcular = document.getElementById("btnCalcular");
 
 // ===============================
 // PESQUISA
 // ===============================
 document.getElementById("searchButton").addEventListener("click", () => {
   const termo = document.getElementById("searchInput").value.trim().toLowerCase();
-
+  artigosContainer.innerHTML = "";
   artigosContainer.style.display = "none";
-  atenuantesBox.style.display = "none";
-  btnCalcular.style.display = "none";
 
   if (!termo) return;
 
@@ -37,11 +45,9 @@ document.getElementById("searchButton").addEventListener("click", () => {
 });
 
 // ===============================
-// RENDERIZA ARTIGOS (SÓ APÓS BUSCA)
+// MOSTRA ARTIGOS
 // ===============================
 function renderArtigos(lista) {
-  artigosContainer.innerHTML = "";
-
   if (lista.length === 0) {
     artigosContainer.innerHTML = "<strong>Nenhum artigo encontrado.</strong>";
     artigosContainer.style.display = "block";
@@ -52,8 +58,9 @@ function renderArtigos(lista) {
     artigosContainer.innerHTML += `
       <div class="article">
         <strong>Art. ${a.numero} – ${a.nome}</strong>
+        <p>${a.descricao}</p>
         <p>
-          Pena base: ${a.pena} meses<br>
+          Pena: ${a.pena} meses<br>
           Multa: R$ ${a.multa}<br>
           Fiança: R$ ${a.fianca}
         </p>
@@ -69,63 +76,53 @@ function renderArtigos(lista) {
   });
 
   artigosContainer.style.display = "block";
-  atenuantesBox.style.display = "block";
-  btnCalcular.style.display = "block";
-
-  ativarAtenuantes();
 }
 
 // ===============================
-// ATENUANTES (FUNCIONAIS)
+// ATENUANTES (DESCRIÇÃO)
 // ===============================
-function ativarAtenuantes() {
-  document.querySelectorAll(".atenuanteCheck").forEach(el => {
-    el.addEventListener("change", atualizarDescricaoAtenuantes);
+document.querySelectorAll(".atenuante input").forEach(el => {
+  el.addEventListener("change", () => {
+    const box = document.getElementById("descricaoAtenuantes");
+    box.innerHTML = "";
+
+    document.querySelectorAll(".atenuante input:checked").forEach(a => {
+      box.innerHTML += `• ${a.dataset.desc}<br>`;
+    });
+
+    if (box.innerHTML === "") {
+      box.innerHTML = "Nenhuma atenuante selecionada.";
+    }
   });
-}
-
-function atualizarDescricaoAtenuantes() {
-  const box = document.getElementById("descricaoAtenuantes");
-  box.innerHTML = "";
-
-  document.querySelectorAll(".atenuanteCheck:checked").forEach(a => {
-    box.innerHTML += `• ${a.dataset.desc}<br>`;
-  });
-
-  if (box.innerHTML === "") {
-    box.innerHTML = "Nenhuma atenuante selecionada.";
-  }
-}
+});
 
 // ===============================
 // CÁLCULO FINAL
 // ===============================
 function calcular() {
-  let pena = 0, multa = 0, fianca = 0;
+  let penaBase = 0;
+  let multa = 0;
+  let fianca = 0;
 
   document.querySelectorAll(".artigo:checked").forEach(a => {
-    pena += Number(a.dataset.pena);
+    penaBase += Number(a.dataset.pena);
     multa += Number(a.dataset.multa);
     fianca += Number(a.dataset.fianca);
   });
 
   let percentual = 0;
-  document.querySelectorAll(".atenuanteCheck:checked").forEach(a => {
-    percentual += Number(a.value);
+  document.querySelectorAll(".atenuante input:checked").forEach(a => {
+    percentual += Number(a.dataset.percent);
   });
 
-  if (percentual > 0.5) percentual = 0.5; // limite legal
-
-  const reducao = pena * percentual;
-  const penaFinal = pena - reducao;
+  const reducao = Math.round(penaBase * percentual);
+  const penaFinal = penaBase - reducao;
 
   document.getElementById("resultado").innerHTML = `
-    Pena Base: <strong>${pena} meses</strong><br>
-    Atenuantes Aplicadas: <strong>${Math.round(percentual * 100)}%</strong><br>
-    Redução: <strong>${Math.round(reducao)} meses</strong><br>
-    <hr>
-    Pena Final: <strong>${Math.round(penaFinal)} meses</strong><br>
-    Multa Total: <strong>R$ ${multa.toLocaleString()}</strong><br>
-    Fiança Total: <strong>R$ ${fianca.toLocaleString()}</strong>
+    Atenuantes: ${Math.round(percentual * 100)}%<br>
+    Redução: <strong>${reducao} meses</strong><br>
+    Pena Final: <strong>${penaFinal} meses</strong><br>
+    Multa: <strong>R$ ${multa.toLocaleString()}</strong><br>
+    Fiança: <strong>R$ ${fianca.toLocaleString()}</strong>
   `;
 }
