@@ -8,65 +8,60 @@
 </head>
 <body>
 
-  <!-- MARCA D’ÁGUA -->
-  <div class="watermark"></div>
+<div class="watermark"></div>
 
-  <!-- CABEÇALHO -->
-  <header class="header">
-    <img src="logo-oasis.png" alt="Brasão TJ Oasis">
-    <h1>
-      TRIBUNAL DE JUSTIÇA DE OASIS<br>
-      1ª VARA CIVIL E CRIMINAL
-    </h1>
-  </header>
+<header class="header">
+  <img src="logo-oasis.png" alt="Brasão TJ Oasis">
+  <h1>
+    TRIBUNAL DE JUSTIÇA DE OASIS<br>
+    1ª VARA CIVIL E CRIMINAL
+  </h1>
+</header>
 
-  <!-- CONTEÚDO -->
-  <main class="container">
+<main class="container">
 
-    <!-- BUSCA -->
-    <div class="search-box">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Pesquisar por número ou nome do artigo">
-      <button id="searchButton">🔍</button>
+  <!-- BUSCA -->
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Digite o número ou nome do artigo">
+    <button id="searchButton">🔍 Pesquisar</button>
+  </div>
+
+  <!-- RESULTADO DA BUSCA -->
+  <div id="artigosContainer">
+    <p><em>Nenhum artigo exibido. Utilize a pesquisa.</em></p>
+  </div>
+
+  <!-- ATENUANTES -->
+  <div class="form-group">
+    <label for="atenuante">Atenuantes Legais</label>
+    <select id="atenuante">
+      <option value="">Nenhuma</option>
+      <option value="primario">Réu Primário</option>
+      <option value="confissao">Confissão Espontânea</option>
+      <option value="bons">Bons Antecedentes</option>
+      <option value="colaboracao">Colaboração com a Justiça</option>
+    </select>
+
+    <div id="descricaoAtenuante" style="margin-top:10px;font-weight:600;">
+      Nenhuma atenuante aplicada.
     </div>
+  </div>
 
-    <!-- RESULTADO DA BUSCA -->
-    <div id="artigosContainer">
-      <p><em>Utilize a pesquisa para localizar um artigo.</em></p>
-    </div>
+  <button class="calculate-btn" onclick="calcular()">
+    Calcular Pena
+  </button>
 
-    <!-- ATENUANTES -->
-    <div class="form-group">
-      <label for="atenuante">Atenuantes</label>
-      <select id="atenuante">
-        <option value="">Nenhuma</option>
-        <option value="leve">Atenuante Leve</option>
-        <option value="media">Atenuante Média</option>
-        <option value="grave">Atenuante Grave</option>
-      </select>
+  <div id="resultado" class="result"></div>
 
-      <p id="descricaoAtenuante" style="margin-top:8px;font-weight:600;">
-        Nenhuma atenuante aplicada.
-      </p>
-    </div>
+</main>
 
-    <!-- CALCULAR -->
-    <button class="calculate-btn" onclick="calcular()">
-      Calcular Pena
-    </button>
+<footer class="footer">
+  Documento Oficial – Tribunal de Justiça de Oasis
+</footer>
 
-    <!-- RESULTADO FINAL -->
-    <div id="resultado" class="result"></div>
-
-  </main>
-
-  <!-- RODAPÉ -->
-  <footer class="footer">
-    Documento Oficial – Tribunal de Justiça de Oasis
-  </footer>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
