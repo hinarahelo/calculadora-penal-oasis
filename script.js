@@ -72,3 +72,4 @@ artigos.forEach(a => {
   div.innerHTML += `<label><input type="checkbox" value="${a.id}"> ${a.nome}</label>`;
 });
 
+
