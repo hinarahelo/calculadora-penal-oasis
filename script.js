@@ -1,5 +1,5 @@
 // =======================================================
-// CÓDIGO PENAL OASIS – NUMERAÇÃO FIEL AO PDF OFICIAL
+// CÓDIGO PENAL OASIS – NUMERAÇÃO FIEL AO PDF
 // ARTIGO 29 NÃO EXISTE
 // =======================================================
 
@@ -72,14 +72,14 @@ const artigos = [
 ];
 
 // =======================================================
-// UTILIDADES
+// UTIL
 // =======================================================
 function normalizar(txt) {
   return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
 // =======================================================
-// ESTADO
+// ESTADO GLOBAL
 // =======================================================
 const artigosContainer = document.getElementById("artigosContainer");
 const selecionados = new Map();
@@ -94,32 +94,34 @@ document.getElementById("searchButton").onclick = () => {
   artigosContainer.innerHTML = "";
   artigosContainer.style.display = "block";
 
-  artigos.filter(a =>
-    !isNaN(termo)
-      ? a.numero === Number(termo)
-      : normalizar(a.nome).includes(termoN)
-  ).forEach(a => {
-    const div = document.createElement("div");
-    div.className = "article";
+  artigos
+    .filter(a =>
+      !isNaN(termo)
+        ? a.numero === Number(termo)
+        : normalizar(a.nome).includes(termoN)
+    )
+    .forEach(a => {
+      const div = document.createElement("div");
+      div.className = "article";
 
-    div.innerHTML = `
-      <strong>Art. ${a.numero} – ${a.nome}</strong>
-      <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
-      Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
-      <label><input type="checkbox"> Selecionar</label>
-    `;
+      div.innerHTML = `
+        <strong>Art. ${a.numero} – ${a.nome}</strong>
+        <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
+        Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
+        <label><input type="checkbox"> Selecionar</label>
+      `;
 
-    const cb = div.querySelector("input");
-    cb.checked = selecionados.has(a.numero);
+      const cb = div.querySelector("input");
+      cb.checked = selecionados.has(a.numero);
 
-    cb.onchange = () => {
-      cb.checked
-        ? selecionados.set(a.numero, a)
-        : selecionados.delete(a.numero);
-    };
+      cb.onchange = () => {
+        cb.checked
+          ? selecionados.set(a.numero, a)
+          : selecionados.delete(a.numero);
+      };
 
-    artigosContainer.appendChild(div);
-  });
+      artigosContainer.appendChild(div);
+    });
 };
 
 // =======================================================
@@ -136,14 +138,16 @@ function calcular() {
   });
 
   let perc = 0;
-  document.querySelectorAll(".atenuante:checked")
+  document
+    .querySelectorAll(".atenuante:checked")
     .forEach(a => perc += Number(a.dataset.percent));
   if (perc > 0.4) perc = 0.4;
 
   const reducao = Math.round(pena * perc);
 
   document.getElementById("resultado").innerHTML = `
-    <strong>Artigos Selecionados:</strong> ${[...selecionados.keys()].join(", ") || "Nenhum"}<br><br>
+    <strong>Artigos Selecionados:</strong>
+    ${[...selecionados.keys()].join(", ") || "Nenhum"}<br><br>
     <strong>Pena Final:</strong> ${pena - reducao} meses<br>
     <strong>Multa:</strong> R$ ${multa}<br>
     <strong>Fiança:</strong> ${inaf ? "INAFIANÇÁVEL" : "R$ " + fianca}
@@ -151,15 +155,23 @@ function calcular() {
 }
 
 // =======================================================
-// LIMPAR
+// LIMPAR – AGORA 100% FUNCIONAL
 // =======================================================
 function limparCalculo() {
+  // limpa estado
   selecionados.clear();
+
+  // limpa UI
   artigosContainer.innerHTML = "";
   artigosContainer.style.display = "none";
+
   document.getElementById("searchInput").value = "";
   document.getElementById("resultado").innerHTML = "";
-  document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
   document.getElementById("descricaoAtenuantes").innerHTML =
     "Nenhuma atenuante selecionada.";
+
+  // desmarca TODOS os checkboxes
+  document
+    .querySelectorAll("input[type='checkbox']")
+    .forEach(cb => cb.checked = false);
 }
