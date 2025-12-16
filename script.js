@@ -70,78 +70,87 @@ const artigos = [
 ];
 
 // =======================================================
-// ESTADO
+// ESTADO GLOBAL
 // =======================================================
 const artigosContainer = document.getElementById("artigosContainer");
 const selecionados = new Map();
 
 // =======================================================
-// PESQUISA (AGORA FUNCIONA)
+// PESQUISA (FUNCIONAL)
 // =======================================================
 document.getElementById("searchButton").onclick = () => {
-  const termo = document.getElementById("searchInput").value.toLowerCase();
+  const termo = document.getElementById("searchInput").value.trim().toLowerCase();
 
   artigosContainer.innerHTML = "";
-  artigosContainer.style.display = "block"; // ✅ CORREÇÃO
+  artigosContainer.style.display = "block";
 
   artigos
-    .filter(a => a.numero.toString() === termo || a.nome.toLowerCase().includes(termo))
+    .filter(a =>
+      a.numero.toString() === termo ||
+      a.nome.toLowerCase().includes(termo)
+    )
     .forEach(a => {
       const marcado = selecionados.has(a.numero) ? "checked" : "";
-      artigosContainer.innerHTML += `
-        <div class="article">
-          <strong>Art. ${a.numero} – ${a.nome}</strong>
-          <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | 
-          Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
-          <label>
-            <input type="checkbox" ${marcado}
-              onchange="toggleArtigo(${a.numero})">
-            Selecionar
-          </label>
-        </div>
+
+      const div = document.createElement("div");
+      div.className = "article";
+      div.innerHTML = `
+        <strong>Art. ${a.numero} – ${a.nome}</strong>
+        <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
+        Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
+        <label>
+          <input type="checkbox" ${marcado}>
+          Selecionar
+        </label>
       `;
+
+      const checkbox = div.querySelector("input");
+      checkbox.onchange = () => {
+        checkbox.checked
+          ? selecionados.set(a.numero, a)
+          : selecionados.delete(a.numero);
+      };
+
+      artigosContainer.appendChild(div);
     });
 };
 
-function toggleArtigo(numero) {
-  const art = artigos.find(a => a.numero === numero);
-  if (selecionados.has(numero)) selecionados.delete(numero);
-  else selecionados.set(numero, art);
-}
-
 // =======================================================
-// CÁLCULO E LIMPAR (IGUAL AO ANTERIOR)
+// CÁLCULO
 // =======================================================
-
 function calcular() {
-  let pena=0,multa=0,fianca=0,inafiancavel=false;
+  let pena = 0, multa = 0, fianca = 0, inafiancavel = false;
 
-  selecionados.forEach(a=>{
-    pena+=a.pena;
-    multa+=a.multa;
-    if(a.fianca===null) inafiancavel=true;
-    else fianca+=a.fianca;
+  selecionados.forEach(a => {
+    pena += a.pena;
+    multa += a.multa;
+    if (a.fianca === null) inafiancavel = true;
+    else fianca += a.fianca;
   });
 
-  let perc=0;
-  document.querySelectorAll(".atenuante:checked").forEach(a=>perc+=+a.dataset.percent);
-  if(perc>0.4) perc=0.4;
+  let perc = 0;
+  document.querySelectorAll(".atenuante:checked")
+    .forEach(a => perc += Number(a.dataset.percent));
+  if (perc > 0.4) perc = 0.4;
 
-  const red=Math.round(pena*perc);
+  const reducao = Math.round(pena * perc);
 
-  document.getElementById("resultado").innerHTML=`
+  document.getElementById("resultado").innerHTML = `
     <strong>Artigos:</strong> ${[...selecionados.keys()].join(", ") || "Nenhum"}<br>
-    Pena Final: ${pena-red} meses<br>
+    Pena Final: ${pena - reducao} meses<br>
     Multa: R$ ${multa}<br>
-    Fiança: ${inafiancavel ? "INAFIANÇÁVEL" : "R$ "+fianca}
+    Fiança: ${inafiancavel ? "INAFIANÇÁVEL" : "R$ " + fianca}
   `;
 }
 
-function limparCalculo(){
+// =======================================================
+// LIMPAR
+// =======================================================
+function limparCalculo() {
   selecionados.clear();
-  artigosContainer.innerHTML="";
-  artigosContainer.style.display="none";
-  document.getElementById("resultado").innerHTML="";
-  document.getElementById("searchInput").value="";
-  document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
+  artigosContainer.innerHTML = "";
+  artigosContainer.style.display = "none";
+  document.getElementById("resultado").innerHTML = "";
+  document.getElementById("searchInput").value = "";
+  document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
 }
