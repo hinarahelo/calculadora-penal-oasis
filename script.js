@@ -141,7 +141,14 @@ function calcular() {
 
   const totalHonorarios = temInafiançavel ? honorarios : (fianca + honorarios);
 
+  const alertaInafiançavel = temInafiançavel
+    ? `<div style="margin:10px 0;padding:10px;border-radius:6px;background:#8b0000;color:#fff;font-weight:bold;text-align:center;">
+         ⚠️ CRIME INAFIANÇÁVEL
+       </div>`
+    : "";
+
   document.getElementById("resultado").innerHTML = `
+    ${alertaInafiançavel}
     <strong>Artigos Selecionados:</strong> ${[...artigosSelecionados].join(", ") || "Nenhum"}<br><br>
     <strong>Pena:</strong> ${penaFinal} meses<br>
     <strong>Multa:</strong> R$ ${multa}<br>
