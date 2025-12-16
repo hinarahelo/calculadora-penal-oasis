@@ -8,14 +8,17 @@
 </head>
 <body>
 
+<!-- MARCA D'ÁGUA -->
 <div class="watermark"></div>
 
 <header class="header">
-  <img src="logo-oasis.png" class="logo">
-  <h1>
-    CALCULADORA TRIBUNAL DE JUSTIÇA DE OASIS<br>
-    <span>1ª VARA CIVIL E CRIMINAL</span>
-  </h1>
+  <div class="header-content">
+    <img src="logo-oasis.png" class="logo" alt="Brasão TJ Oasis">
+    <div class="header-text">
+      <h1>CALCULADORA TRIBUNAL DE JUSTIÇA DE OASIS</h1>
+      <span>1ª VARA CIVIL E CRIMINAL</span>
+    </div>
+  </div>
 </header>
 
 <main class="container">
@@ -39,7 +42,7 @@
   </div>
 
   <button class="calculate-btn" onclick="calcular()">Calcular Pena</button>
-  <button class="calculate-btn" onclick="limparCalculo()">Limpar Cálculo</button>
+  <button class="calculate-btn secondary" onclick="limparCalculo()">Limpar Cálculo</button>
 
   <div id="resultado" class="result"></div>
 
