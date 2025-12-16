@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora TJ Oasis</title>
+  <title>Calculadora Penal Oasis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -21,7 +21,7 @@
 <main class="container">
 
   <div class="search-box">
-    <input id="searchInput" placeholder="Digite o número ou nome do artigo">
+    <input id="searchInput" placeholder="Número ou nome do artigo">
     <button id="searchButton">🔍 Pesquisar</button>
   </div>
 
@@ -30,15 +30,16 @@
   <div class="form-group">
     <label>Atenuantes</label>
 
-    <div><input type="checkbox" class="atenuante" data-percent="0.10"> Réu Primário (−10%)</div>
-    <div><input type="checkbox" class="atenuante" data-percent="0.15"> Confissão Espontânea (−15%)</div>
-    <div><input type="checkbox" class="atenuante" data-percent="0.10"> Bons Antecedentes (−10%)</div>
-    <div><input type="checkbox" class="atenuante" data-percent="0.20"> Colaboração com a Justiça (−20%)</div>
+    <label><input type="checkbox" class="atenuante" data-percent="0.10"> Réu Primário (−10%)</label>
+    <label><input type="checkbox" class="atenuante" data-percent="0.15"> Confissão Espontânea (−15%)</label>
+    <label><input type="checkbox" class="atenuante" data-percent="0.10"> Bons Antecedentes (−10%)</label>
+    <label><input type="checkbox" class="atenuante" data-percent="0.20"> Colaboração com a Justiça (−20%)</label>
 
+    <div id="descricaoAtenuantes">Nenhuma atenuante selecionada.</div>
   </div>
 
   <button class="calculate-btn" onclick="calcular()">Calcular Pena</button>
-  <button class="calculate-btn" onclick="limpar()">Limpar Cálculo</button>
+  <button class="calculate-btn" onclick="limparCalculo()">Limpar Cálculo</button>
 
   <div id="resultado" class="result"></div>
 
