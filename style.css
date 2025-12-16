@@ -13,7 +13,7 @@ body {
   color: #2b2b2b;
   background-color: #f5f2ee;
   background-image:
-    linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+    linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)),
     url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
   background-repeat: repeat;
 }
@@ -33,7 +33,7 @@ body {
 .header {
   background: #6b0f0f;
   border-bottom: 4px solid #c9a24d;
-  padding: 20px;
+  padding: 22px 20px;
 }
 
 .header-content {
@@ -42,11 +42,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
+  gap: 20px;
 }
 
 .logo {
-  height: 70px;
+  height: 78px; /* AUMENTADA */
   flex-shrink: 0;
   animation: fadeIn 0.8s ease;
 }
@@ -61,7 +61,6 @@ body {
   font-size: 20px;
   font-weight: 800;
   line-height: 1.25;
-  white-space: normal;
 }
 
 .header-text span {
@@ -138,17 +137,6 @@ body {
   line-height: 1.5;
 }
 
-/* ================= FORM ================= */
-.form-group {
-  margin-top: 25px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
 /* ================= BOTÕES ================= */
 .calculate-btn {
   margin-top: 18px;
@@ -179,7 +167,6 @@ body {
   border-left: 6px solid #6b0f0f;
   font-weight: 700;
   line-height: 1.6;
-  animation: fadeInUp 0.5s ease;
 }
 
 /* ================= FOOTER ================= */
@@ -200,21 +187,21 @@ body {
   opacity: 0.8;
 }
 
-/* ================= RESPONSIVO ================= */
+/* ================= MOBILE ================= */
 @media (max-width: 768px) {
 
   .header-content {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    padding: 0 10px;
+    flex-direction: column; /* CENTRALIZA LOGO + TEXTO */
+    gap: 10px;
   }
 
   .logo {
-    height: 58px;
+    height: 64px;
   }
 
   .header-text h1 {
     font-size: 16px;
+    text-align: center;
   }
 
   .header-text span {
