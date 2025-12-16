@@ -2,7 +2,7 @@ function normalizarTexto(txt) {
   return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-/* ================= ARTIGOS (INALTERADO) ================= */
+/* ================= ARTIGOS (INALTERADOS) ================= */
 const artigos = [
 {numero:1,nome:"Direção Perigosa",descricao:"Utilização do veículo para demonstrar manobras perigosas colocando terceiros em risco.",pena:15,multa:2000,fianca:1500},
 {numero:2,nome:"Homicídio Culposo",descricao:"Morte causada por imprudência, negligência ou imperícia, sem intenção de matar.",pena:30,multa:6000,fianca:0},
@@ -73,7 +73,7 @@ const artigos = [
 /* ================= CONTROLE ================= */
 const artigosSelecionados = new Set();
 
-/* ================= PESQUISA (INALTERADA) ================= */
+/* ================= PESQUISA ================= */
 document.getElementById("searchButton").onclick = () => {
   const termo = normalizarTexto(document.getElementById("searchInput").value);
   const container = document.getElementById("artigosContainer");
@@ -110,36 +110,47 @@ document.getElementById("searchButton").onclick = () => {
   });
 };
 
-/* ================= CÁLCULO FINAL (REGRA CORRETA) ================= */
+/* ================= CÁLCULO FINAL ================= */
 function calcular() {
-  let pena = 0, multa = 0, fianca = 0, honorarios = 0, perc = 0;
+  let pena = 0;
+  let multa = 0;
+  let fianca = 0;
+  let honorarios = 0;
+  let perc = 0;
+  let temInafiançavel = false;
 
   artigos.forEach(a => {
     if (artigosSelecionados.has(a.numero)) {
       pena += a.pena;
       multa += a.multa;
-      if (a.fianca > 0) fianca += a.fianca;
+
+      if (a.fianca === 0 && a.numero !== 44) {
+        temInafiançavel = true;
+      } else {
+        fianca += a.fianca;
+      }
     }
   });
 
   document.querySelectorAll(".atenuante:checked").forEach(a => perc += +a.dataset.percent);
   if (perc > 0.4) perc = 0.4;
 
+  const penaFinal = pena - Math.round(pena * perc);
+
   document.querySelectorAll(".honorario:checked").forEach(h => honorarios += +h.dataset.valor);
 
-  const penaFinal = pena - Math.round(pena * perc);
-  const total = fianca + honorarios;
+  const totalHonorarios = temInafiançavel ? honorarios : (fianca + honorarios);
 
   document.getElementById("resultado").innerHTML = `
     <strong>Artigos Selecionados:</strong> ${[...artigosSelecionados].join(", ") || "Nenhum"}<br><br>
     <strong>Pena:</strong> ${penaFinal} meses<br>
     <strong>Multa:</strong> R$ ${multa}<br>
     <strong>Fiança:</strong> R$ ${fianca}<br>
-    <strong>Total com Honorários:</strong> R$ ${total}
+    <strong>Total com Honorários:</strong> R$ ${totalHonorarios}
   `;
 }
 
-/* ================= LIMPAR (INALTERADO) ================= */
+/* ================= LIMPAR ================= */
 function limparCalculo() {
   artigosSelecionados.clear();
   document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
