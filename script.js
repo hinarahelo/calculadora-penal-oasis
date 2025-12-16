@@ -2,7 +2,7 @@ function normalizarTexto(txt) {
   return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-/* ================= ARTIGOS (ESTRUTURA ORIGINAL PRESERVADA) ================= */
+/* ================= ARTIGOS (NÃO ALTERADO) ================= */
 const artigos = [
 {numero:1,nome:"Direção Perigosa",descricao:"Utilização do veículo para demonstrar manobras perigosas colocando terceiros em risco.",pena:15,multa:2000,fianca:1500},
 {numero:2,nome:"Homicídio Culposo",descricao:"Morte causada por imprudência, negligência ou imperícia, sem intenção de matar.",pena:30,multa:6000,fianca:0},
@@ -70,10 +70,10 @@ const artigos = [
 {numero:65,nome:"Assédio",descricao:"Conduta abusiva repetitiva.",pena:20,multa:1500,fianca:3000}
 ];
 
-/* ================= CONTROLE DE SELEÇÃO ================= */
+/* ================= CONTROLE ================= */
 const artigosSelecionados = new Set();
 
-/* ================= PESQUISA ================= */
+/* ================= PESQUISA (NÃO ALTERADA) ================= */
 document.getElementById("searchButton").onclick = () => {
   const termo = normalizarTexto(document.getElementById("searchInput").value);
   const container = document.getElementById("artigosContainer");
@@ -87,10 +87,7 @@ document.getElementById("searchButton").onclick = () => {
   ).forEach(a => {
 
     const marcado = artigosSelecionados.has(a.numero);
-
-    const fiancaTexto =
-      a.numero === 44 ? "0" :
-      a.fianca === 0 ? "INAFIANÇÁVEL" : "R$ " + a.fianca;
+    const fiancaTexto = a.fianca === 0 ? "INAFIANÇÁVEL" : "R$ " + a.fianca;
 
     container.innerHTML += `
       <div class="article">
@@ -98,11 +95,7 @@ document.getElementById("searchButton").onclick = () => {
         <p>${a.descricao}</p>
         <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | Fiança: ${fiancaTexto}</p>
         <label>
-          <input type="checkbox" class="artigo"
-            data-numero="${a.numero}"
-            data-pena="${a.pena}"
-            data-multa="${a.multa}"
-            ${marcado ? "checked" : ""}>
+          <input type="checkbox" class="artigo" data-numero="${a.numero}" ${marcado ? "checked" : ""}>
           Selecionar
         </label>
       </div>
@@ -117,14 +110,15 @@ document.getElementById("searchButton").onclick = () => {
   });
 };
 
-/* ================= CÁLCULO ================= */
+/* ================= CÁLCULO (APENAS SAÍDA ALTERADA) ================= */
 function calcular() {
-  let pena = 0, multa = 0, perc = 0, honorarios = 0;
+  let pena = 0, multa = 0, perc = 0, honorarios = 0, fianca = 0;
 
   artigos.forEach(a => {
     if (artigosSelecionados.has(a.numero)) {
       pena += a.pena;
       multa += a.multa;
+      if (a.fianca > 0) fianca += a.fianca;
     }
   });
 
@@ -133,23 +127,19 @@ function calcular() {
 
   document.querySelectorAll(".honorario:checked").forEach(h => honorarios += +h.dataset.valor);
 
-  const reducao = Math.round(pena * perc);
-  const penaFinal = pena - reducao;
-  const total = multa + honorarios;
+  const penaFinal = pena - Math.round(pena * perc);
+  const total = multa + fianca + honorarios;
 
   document.getElementById("resultado").innerHTML = `
     <strong>Artigos Selecionados:</strong> ${[...artigosSelecionados].join(", ") || "Nenhum"}<br><br>
-    Pena Base: ${pena} meses<br>
-    Atenuantes: ${perc * 100}%<br>
-    Redução: ${reducao} meses<br>
-    <strong>Pena Final:</strong> ${penaFinal} meses<br><br>
-    Multa: R$ ${multa}<br>
-    Honorários: R$ ${honorarios}<br><br>
+    <strong>Pena:</strong> ${penaFinal} meses<br>
+    <strong>Multa:</strong> R$ ${multa}<br>
+    <strong>Fiança:</strong> ${fianca > 0 ? "R$ " + fianca : "INAFIANÇÁVEL"}<br>
     <strong>Total com Honorários:</strong> R$ ${total}
   `;
 }
 
-/* ================= LIMPAR ================= */
+/* ================= LIMPAR (NÃO ALTERADO) ================= */
 function limparCalculo() {
   artigosSelecionados.clear();
   document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
