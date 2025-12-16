@@ -71,13 +71,13 @@ const artigos = [
 ];
 
 // =======================================================
-// ESTADO
+// ESTADO GLOBAL
 // =======================================================
 const artigosContainer = document.getElementById("artigosContainer");
 const selecionados = new Map();
 
 // =======================================================
-// BUSCA (NÚMERO OU NOME)
+// PESQUISA (NUMEROS OU NOME)
 // =======================================================
 document.getElementById("searchButton").onclick = () => {
   const termoRaw = document.getElementById("searchInput").value;
@@ -145,7 +145,7 @@ function calcular() {
   const reducao = Math.round(pena * perc);
 
   document.getElementById("resultado").innerHTML = `
-    <strong>Artigos:</strong> ${[...selecionados.keys()].join(", ") || "Nenhum"}<br>
+    <strong>Artigos Selecionados:</strong> ${[...selecionados.keys()].join(", ") || "Nenhum"}<br>
     Pena Final: ${pena - reducao} meses<br>
     Multa: R$ ${multa}<br>
     Fiança: ${inafiancavel ? "INAFIANÇÁVEL" : "R$ " + fianca}
