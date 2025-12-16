@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,11 +10,9 @@
 
 <div class="watermark"></div>
 
-<!-- ================= HEADER ================= -->
 <header class="header">
   <div class="header-content">
     <img src="logo-oasis.png" class="logo" alt="Brasão TJ Oasis">
-
     <div class="header-text">
       <h1>
         CALCULADORA TRIBUNAL DE JUSTIÇA DE OASIS
@@ -25,7 +22,6 @@
   </div>
 </header>
 
-<!-- ================= CONTEÚDO ================= -->
 <main class="container">
 
   <!-- PESQUISA -->
@@ -34,60 +30,38 @@
     <button id="searchButton">🔍 Pesquisar</button>
   </div>
 
-  <!-- ARTIGOS -->
   <div id="artigosContainer" style="display:none"></div>
 
   <!-- ATENUANTES -->
   <div class="form-group">
-    <label>Atenuantes</label>
+    <strong>Atenuantes</strong><br><br>
 
-    <div class="atenuante">
-      <input type="checkbox" class="atenuante" data-percent="0.10"
-        data-desc="Réu primário: não possui condenações anteriores.">
-      Réu Primário (−10%)
-    </div>
+    <label><input type="checkbox" class="atenuante" data-percent="0.10"> Réu Primário (−10%)</label><br>
+    <label><input type="checkbox" class="atenuante" data-percent="0.15"> Confissão Espontânea (−15%)</label><br>
+    <label><input type="checkbox" class="atenuante" data-percent="0.10"> Bons Antecedentes (−10%)</label><br>
+    <label><input type="checkbox" class="atenuante" data-percent="0.20"> Colaboração com a Justiça (−20%)</label>
 
-    <div class="atenuante">
-      <input type="checkbox" class="atenuante" data-percent="0.15"
-        data-desc="Confissão espontânea do crime.">
-      Confissão Espontânea (−15%)
-    </div>
-
-    <div class="atenuante">
-      <input type="checkbox" class="atenuante" data-percent="0.10"
-        data-desc="Bons antecedentes comprovados.">
-      Bons Antecedentes (−10%)
-    </div>
-
-    <div class="atenuante">
-      <input type="checkbox" class="atenuante" data-percent="0.20"
-        data-desc="Colaboração com a Justiça.">
-      Colaboração com a Justiça (−20%)
-    </div>
-
-    <div id="descricaoAtenuantes">
-      Nenhuma atenuante selecionada.
-    </div>
+    <br><br>
   </div>
 
-  <!-- BOTÕES -->
+  <!-- HONORÁRIOS -->
+  <div class="form-group">
+    <strong>Atendimentos Jurídicos</strong><br><br>
+
+    <label><input type="checkbox" class="honorario" data-valor="20000"> Delegacia Sul — R$ 20.000</label><br>
+    <label><input type="checkbox" class="honorario" data-valor="30000"> Delegacia PRF — R$ 30.000</label>
+  </div>
+
   <button class="calculate-btn" onclick="calcular()">Calcular Pena</button>
+  <button class="calculate-btn secondary" onclick="limparCalculo()">Limpar Cálculo</button>
 
-  <button class="calculate-btn secondary" onclick="limparCalculo()">
-    Limpar Cálculo
-  </button>
-
-  <!-- RESULTADO -->
   <div id="resultado" class="result"></div>
 
 </main>
 
-<!-- ================= RODAPÉ ================= -->
 <footer class="footer">
   Documento Oficial – Tribunal de Justiça de Oasis
-  <div class="footer-credit">
-    Calculadora desenvolvida por Hinara Heloar
-  </div>
+  <div class="footer-credit">Calculadora desenvolvida por Hinara Heloar</div>
 </footer>
 
 <script src="script.js"></script>
