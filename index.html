@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,9 +11,11 @@
 
 <div class="watermark"></div>
 
+<!-- ================= HEADER ================= -->
 <header class="header">
   <div class="header-content">
     <img src="logo-oasis.png" class="logo" alt="Brasão TJ Oasis">
+
     <div class="header-text">
       <h1>
         CALCULADORA TRIBUNAL DE JUSTIÇA DE OASIS
@@ -22,6 +25,7 @@
   </div>
 </header>
 
+<!-- ================= CONTEÚDO ================= -->
 <main class="container">
 
   <!-- PESQUISA -->
@@ -37,49 +41,48 @@
   <div class="form-group">
     <label>Atenuantes</label>
 
-    <div>
-      <input type="checkbox" class="atenuante" data-percent="0.10">
+    <div class="atenuante">
+      <input type="checkbox" class="atenuante" data-percent="0.10"
+        data-desc="Réu primário: não possui condenações anteriores.">
       Réu Primário (−10%)
     </div>
 
-    <div>
-      <input type="checkbox" class="atenuante" data-percent="0.15">
+    <div class="atenuante">
+      <input type="checkbox" class="atenuante" data-percent="0.15"
+        data-desc="Confissão espontânea do crime.">
       Confissão Espontânea (−15%)
     </div>
 
-    <div>
-      <input type="checkbox" class="atenuante" data-percent="0.10">
+    <div class="atenuante">
+      <input type="checkbox" class="atenuante" data-percent="0.10"
+        data-desc="Bons antecedentes comprovados.">
       Bons Antecedentes (−10%)
     </div>
 
-    <div>
-      <input type="checkbox" class="atenuante" data-percent="0.20">
+    <div class="atenuante">
+      <input type="checkbox" class="atenuante" data-percent="0.20"
+        data-desc="Colaboração com a Justiça.">
       Colaboração com a Justiça (−20%)
     </div>
-  </div>
 
-  <!-- HONORÁRIOS -->
-  <div class="form-group">
-    <label>Atendimentos Jurídicos</label>
-
-    <div>
-      <input type="checkbox" class="honorario" data-valor="20000">
-      Delegacia Sul – R$ 20.000
-    </div>
-
-    <div>
-      <input type="checkbox" class="honorario" data-valor="30000">
-      Delegacia PRF – R$ 30.000
+    <div id="descricaoAtenuantes">
+      Nenhuma atenuante selecionada.
     </div>
   </div>
 
+  <!-- BOTÕES -->
   <button class="calculate-btn" onclick="calcular()">Calcular Pena</button>
-  <button class="calculate-btn secondary" onclick="limparCalculo()">Limpar Cálculo</button>
 
+  <button class="calculate-btn secondary" onclick="limparCalculo()">
+    Limpar Cálculo
+  </button>
+
+  <!-- RESULTADO -->
   <div id="resultado" class="result"></div>
 
 </main>
 
+<!-- ================= RODAPÉ ================= -->
 <footer class="footer">
   Documento Oficial – Tribunal de Justiça de Oasis
   <div class="footer-credit">
