@@ -1,5 +1,6 @@
 // =======================================================
-// CÓDIGO PENAL OASIS — ARTIGOS 1 AO 65 (PDF OFICIAL)
+// CÓDIGO PENAL OASIS – NUMERAÇÃO FIEL AO PDF OFICIAL
+// ARTIGO 29 NÃO EXISTE
 // =======================================================
 
 const artigos = [
@@ -15,7 +16,7 @@ const artigos = [
   {numero:10,nome:"Sequestro",pena:50,multa:5000,fianca:null},
   {numero:11,nome:"Cárcere Privado",pena:35,multa:3000,fianca:6000},
   {numero:12,nome:"Omissão de Socorro",pena:30,multa:8000,fianca:3000},
-  {numero:13,nome:"Maus Tratos",pena:40,multa:5000,fianca:null},
+  {numero:13,nome:"Maus-Tratos",pena:40,multa:5000,fianca:null},
   {numero:14,nome:"Difamação",pena:30,multa:2500,fianca:8500},
   {numero:15,nome:"Injúria",pena:20,multa:2500,fianca:8500},
   {numero:16,nome:"Calúnia",pena:20,multa:2500,fianca:8500},
@@ -23,31 +24,31 @@ const artigos = [
   {numero:18,nome:"Ameaça",pena:30,multa:2000,fianca:10000},
   {numero:19,nome:"Uso Indevido de Imagem",pena:0,multa:3500,fianca:7000},
   {numero:20,nome:"Abandono de Incapaz",pena:30,multa:8000,fianca:7000},
-  {numero:21,nome:"Incitar a Prática de Crime",pena:25,multa:6250,fianca:3000},
+  {numero:21,nome:"Incitação ao Crime",pena:25,multa:6250,fianca:3000},
   {numero:22,nome:"Formação de Quadrilha",pena:45,multa:5000,fianca:7000},
   {numero:23,nome:"Tráfico de Drogas",pena:50,multa:2500,fianca:1000},
   {numero:24,nome:"Porte Ilegal de Arma",pena:50,multa:7500,fianca:12000},
-  {numero:25,nome:"Uso Indevido do Porte de Armas",pena:40,multa:2000,fianca:2000},
+  {numero:25,nome:"Uso Indevido de Arma",pena:40,multa:2000,fianca:2000},
   {numero:26,nome:"Tráfico de Material Ilegal",pena:25,multa:4000,fianca:8750},
   {numero:27,nome:"Tráfico Ilegal de Armas",pena:60,multa:9500,fianca:10000},
   {numero:28,nome:"Fuga de Abordagem",pena:20,multa:1500,fianca:2500},
-  {numero:29,nome:"Perturbação da Ordem Pública",pena:15,multa:1500,fianca:2500},
-  {numero:30,nome:"Porte de Dinheiro Sujo",pena:15,multa:1500,fianca:2000},
-  {numero:31,nome:"Uso de Vestimenta de Servidor Público",pena:15,multa:1500,fianca:1700},
+
+  {numero:30,nome:"Porte de Dinheiro Ilícito",pena:15,multa:1500,fianca:2000},
+  {numero:31,nome:"Uso Indevido de Uniforme Público",pena:15,multa:1500,fianca:1700},
   {numero:32,nome:"Falsidade Ideológica",pena:25,multa:2250,fianca:3125},
   {numero:33,nome:"Desacato à Autoridade",pena:25,multa:4000,fianca:4000},
   {numero:34,nome:"Abandono de Função",pena:25,multa:4000,fianca:2500},
-  {numero:35,nome:"Desobediência de Ordem Legal",pena:25,multa:5000,fianca:5000},
+  {numero:35,nome:"Desobediência Legal",pena:25,multa:5000,fianca:5000},
   {numero:36,nome:"Tentativa de Suborno",pena:40,multa:4000,fianca:8750},
   {numero:37,nome:"Abuso de Autoridade",pena:25,multa:4000,fianca:2500},
   {numero:38,nome:"Fraudar Informações",pena:20,multa:3000,fianca:2000},
   {numero:39,nome:"Corrida Ilegal",pena:30,multa:5000,fianca:2250},
-  {numero:40,nome:"Invasão aos Órgãos Públicos",pena:20,multa:3000,fianca:2000},
+  {numero:40,nome:"Invasão de Órgão Público",pena:20,multa:3000,fianca:2000},
   {numero:41,nome:"Invasão de Domicílio",pena:20,multa:3500,fianca:2500},
   {numero:42,nome:"Veículo Danificado",pena:0,multa:5000,fianca:5000},
   {numero:43,nome:"Legítima Defesa",pena:0,multa:0,fianca:0},
   {numero:44,nome:"Resistência à Prisão",pena:20,multa:2500,fianca:7000},
-  {numero:45,nome:"Perturbação do Sossego Público",pena:0,multa:7500,fianca:0},
+  {numero:45,nome:"Perturbação do Sossego",pena:0,multa:7500,fianca:0},
   {numero:46,nome:"Prevaricação",pena:30,multa:4000,fianca:2000},
   {numero:47,nome:"Desmanche de Veículo",pena:30,multa:2000,fianca:4500},
   {numero:48,nome:"Ocultação de Provas",pena:20,multa:1500,fianca:3000},
@@ -59,7 +60,7 @@ const artigos = [
   {numero:54,nome:"Cúmplice",pena:20,multa:2000,fianca:4300},
   {numero:55,nome:"Apologia ao Crime",pena:15,multa:1500,fianca:2500},
   {numero:56,nome:"Tráfico de Influência",pena:20,multa:3000,fianca:4500},
-  {numero:57,nome:"Obstrução de Justiça",pena:20,multa:3000,fianca:4500},
+  {numero:57,nome:"Obstrução da Justiça",pena:20,multa:3000,fianca:4500},
   {numero:58,nome:"Associação Criminosa",pena:30,multa:2500,fianca:4000},
   {numero:59,nome:"Associação ao Tráfico",pena:30,multa:2500,fianca:4000},
   {numero:60,nome:"Receptação de Veículos",pena:25,multa:1500,fianca:2500},
@@ -71,13 +72,10 @@ const artigos = [
 ];
 
 // =======================================================
-// UTIL — REMOVE ACENTOS
+// UTILIDADES
 // =======================================================
-function normalizarTexto(texto) {
-  return texto
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+function normalizar(txt) {
+  return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
 // =======================================================
@@ -87,47 +85,35 @@ const artigosContainer = document.getElementById("artigosContainer");
 const selecionados = new Map();
 
 // =======================================================
-// BUSCA (COM OU SEM ACENTO)
+// PESQUISA
 // =======================================================
 document.getElementById("searchButton").onclick = () => {
-  const termoInput = document.getElementById("searchInput").value.trim();
-  const termoNormalizado = normalizarTexto(termoInput);
+  const termo = document.getElementById("searchInput").value.trim();
+  const termoN = normalizar(termo);
 
   artigosContainer.innerHTML = "";
   artigosContainer.style.display = "block";
 
-  if (!termoNormalizado) return;
-
-  const resultados = artigos.filter(a => {
-    if (!isNaN(termoInput)) {
-      return a.numero === Number(termoInput);
-    }
-    return normalizarTexto(a.nome).includes(termoNormalizado);
-  });
-
-  resultados.forEach(a => {
-    const marcado = selecionados.has(a.numero);
-
+  artigos.filter(a =>
+    !isNaN(termo)
+      ? a.numero === Number(termo)
+      : normalizar(a.nome).includes(termoN)
+  ).forEach(a => {
     const div = document.createElement("div");
     div.className = "article";
+
     div.innerHTML = `
       <strong>Art. ${a.numero} – ${a.nome}</strong>
-      <p>
-        Pena: ${a.pena} meses |
-        Multa: R$ ${a.multa} |
-        Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}
-      </p>
-      <label>
-        <input type="checkbox">
-        Selecionar
-      </label>
+      <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
+      Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
+      <label><input type="checkbox"> Selecionar</label>
     `;
 
-    const checkbox = div.querySelector("input");
-    checkbox.checked = marcado;
+    const cb = div.querySelector("input");
+    cb.checked = selecionados.has(a.numero);
 
-    checkbox.onchange = () => {
-      checkbox.checked
+    cb.onchange = () => {
+      cb.checked
         ? selecionados.set(a.numero, a)
         : selecionados.delete(a.numero);
     };
@@ -137,33 +123,30 @@ document.getElementById("searchButton").onclick = () => {
 };
 
 // =======================================================
-// CÁLCULO
+// CALCULAR
 // =======================================================
 function calcular() {
-  let pena = 0, multa = 0, fianca = 0, inafiancavel = false;
+  let pena = 0, multa = 0, fianca = 0, inaf = false;
 
   selecionados.forEach(a => {
     pena += a.pena;
     multa += a.multa;
-    if (a.fianca === null) inafiancavel = true;
+    if (a.fianca === null) inaf = true;
     else fianca += a.fianca;
   });
 
   let perc = 0;
-  document.querySelectorAll(".atenuante:checked").forEach(a => {
-    perc += Number(a.dataset.percent);
-  });
+  document.querySelectorAll(".atenuante:checked")
+    .forEach(a => perc += Number(a.dataset.percent));
   if (perc > 0.4) perc = 0.4;
 
   const reducao = Math.round(pena * perc);
 
   document.getElementById("resultado").innerHTML = `
-    <strong>Artigos Selecionados:</strong>
-    ${[...selecionados.keys()].join(", ") || "Nenhum"}<br><br>
-
+    <strong>Artigos Selecionados:</strong> ${[...selecionados.keys()].join(", ") || "Nenhum"}<br><br>
     <strong>Pena Final:</strong> ${pena - reducao} meses<br>
     <strong>Multa:</strong> R$ ${multa}<br>
-    <strong>Fiança:</strong> ${inafiancavel ? "INAFIANÇÁVEL" : "R$ " + fianca}
+    <strong>Fiança:</strong> ${inaf ? "INAFIANÇÁVEL" : "R$ " + fianca}
   `;
 }
 
@@ -177,4 +160,6 @@ function limparCalculo() {
   document.getElementById("searchInput").value = "";
   document.getElementById("resultado").innerHTML = "";
   document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
+  document.getElementById("descricaoAtenuantes").innerHTML =
+    "Nenhuma atenuante selecionada.";
 }
