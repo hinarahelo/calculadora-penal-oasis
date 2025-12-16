@@ -70,75 +70,78 @@ const artigos = [
 ];
 
 // =======================================================
-// LÓGICA
+// ESTADO
 // =======================================================
-
-const selecionados = new Map();
 const artigosContainer = document.getElementById("artigosContainer");
+const selecionados = new Map();
 
+// =======================================================
+// PESQUISA (AGORA FUNCIONA)
+// =======================================================
 document.getElementById("searchButton").onclick = () => {
   const termo = document.getElementById("searchInput").value.toLowerCase();
+
   artigosContainer.innerHTML = "";
+  artigosContainer.style.display = "block"; // ✅ CORREÇÃO
 
-  artigos.filter(a =>
-    a.numero.toString() === termo || a.nome.toLowerCase().includes(termo)
-  ).forEach(a => {
-    const marcado = selecionados.has(a.numero) ? "checked" : "";
-    artigosContainer.innerHTML += `
-      <div class="article">
-        <strong>Art. ${a.numero} – ${a.nome}</strong>
-        <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
-        <label>
-          <input type="checkbox" class="artigo" data-num="${a.numero}" ${marcado}>
-          Selecionar
-        </label>
-      </div>
-    `;
-  });
-
-  document.querySelectorAll(".artigo").forEach(c => {
-    c.onchange = () => {
-      const art = artigos.find(a => a.numero == c.dataset.num);
-      c.checked ? selecionados.set(art.numero, art) : selecionados.delete(art.numero);
-    };
-  });
+  artigos
+    .filter(a => a.numero.toString() === termo || a.nome.toLowerCase().includes(termo))
+    .forEach(a => {
+      const marcado = selecionados.has(a.numero) ? "checked" : "";
+      artigosContainer.innerHTML += `
+        <div class="article">
+          <strong>Art. ${a.numero} – ${a.nome}</strong>
+          <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | 
+          Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
+          <label>
+            <input type="checkbox" ${marcado}
+              onchange="toggleArtigo(${a.numero})">
+            Selecionar
+          </label>
+        </div>
+      `;
+    });
 };
 
+function toggleArtigo(numero) {
+  const art = artigos.find(a => a.numero === numero);
+  if (selecionados.has(numero)) selecionados.delete(numero);
+  else selecionados.set(numero, art);
+}
+
+// =======================================================
+// CÁLCULO E LIMPAR (IGUAL AO ANTERIOR)
+// =======================================================
+
 function calcular() {
-  let pena = 0, multa = 0, fianca = 0;
-  let artigosNums = [];
+  let pena=0,multa=0,fianca=0,inafiancavel=false;
 
-  selecionados.forEach(a => {
-    pena += a.pena;
-    multa += a.multa;
-    if (a.fianca !== null) fianca += a.fianca;
-    artigosNums.push(a.numero);
+  selecionados.forEach(a=>{
+    pena+=a.pena;
+    multa+=a.multa;
+    if(a.fianca===null) inafiancavel=true;
+    else fianca+=a.fianca;
   });
 
-  let perc = 0, desc = [];
-  document.querySelectorAll(".atenuante:checked").forEach(a => {
-    perc += Number(a.dataset.percent);
-    desc.push(a.dataset.desc);
-  });
+  let perc=0;
+  document.querySelectorAll(".atenuante:checked").forEach(a=>perc+=+a.dataset.percent);
+  if(perc>0.4) perc=0.4;
 
-  if (perc > 0.4) perc = 0.4;
+  const red=Math.round(pena*perc);
 
-  const reducao = Math.round(pena * perc);
-
-  document.getElementById("descricaoAtenuantes").innerHTML =
-    desc.length ? desc.join("<br>") : "Nenhuma atenuante selecionada.";
-
-  document.getElementById("resultado").innerHTML = `
-    <strong>Artigos:</strong> ${artigosNums.join(", ")}<br>
-    <strong>Pena Final:</strong> ${pena - reducao} meses<br>
-    <strong>Multa:</strong> R$ ${multa}<br>
-    <strong>Fiança:</strong> ${fianca === 0 ? "INAFIANÇÁVEL" : "R$ " + fianca}
+  document.getElementById("resultado").innerHTML=`
+    <strong>Artigos:</strong> ${[...selecionados.keys()].join(", ") || "Nenhum"}<br>
+    Pena Final: ${pena-red} meses<br>
+    Multa: R$ ${multa}<br>
+    Fiança: ${inafiancavel ? "INAFIANÇÁVEL" : "R$ "+fianca}
   `;
 }
 
-function limparCalculo() {
+function limparCalculo(){
   selecionados.clear();
-  document.querySelectorAll("input").forEach(i => i.checked = false);
-  document.getElementById("resultado").innerHTML = "";
-  document.getElementById("descricaoAtenuantes").innerHTML = "Nenhuma atenuante selecionada.";
+  artigosContainer.innerHTML="";
+  artigosContainer.style.display="none";
+  document.getElementById("resultado").innerHTML="";
+  document.getElementById("searchInput").value="";
+  document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
 }
