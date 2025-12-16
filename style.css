@@ -7,11 +7,15 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+/* ================= FUNDO PAPEL ================= */
 body {
-  background: #f5f2ee;
-  color: #2b2b2b;
   min-height: 100vh;
-  position: relative;
+  color: #2b2b2b;
+  background-color: #f5f2ee;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 }
 
 /* ================= MARCA D'ÁGUA ================= */
@@ -29,7 +33,7 @@ body {
 .header {
   background: #6b0f0f;
   border-bottom: 4px solid #c9a24d;
-  padding: 18px 20px;
+  padding: 20px;
 }
 
 .header-content {
@@ -38,29 +42,33 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 22px;
+  gap: 18px;
 }
 
 .logo {
-  height: 68px;
+  height: 70px;
   flex-shrink: 0;
+  animation: fadeIn 0.8s ease;
 }
 
 .header-text {
   text-align: center;
-  color: #fff;
+  color: #ffffff;
+  animation: slideDown 0.6s ease;
 }
 
 .header-text h1 {
   font-size: 20px;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.25;
+  white-space: normal;
 }
 
 .header-text span {
+  display: block;
   font-size: 14px;
   font-weight: 600;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 /* ================= CONTAINER ================= */
@@ -73,6 +81,7 @@ body {
   background: #ffffff;
   border-radius: 14px;
   box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  animation: fadeInUp 0.6s ease;
 }
 
 /* ================= BUSCA ================= */
@@ -99,10 +108,13 @@ body {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 700;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search-box button:hover {
   background: #8c1a1a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 /* ================= ARTIGOS ================= */
@@ -112,6 +124,7 @@ body {
   padding: 14px 18px;
   border-radius: 8px;
   margin-bottom: 14px;
+  animation: fadeIn 0.4s ease;
 }
 
 .article strong {
@@ -148,19 +161,13 @@ body {
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .calculate-btn:hover {
   background: #8c1a1a;
-}
-
-.calculate-btn.secondary {
-  background: #c9a24d;
-  color: #3b1d00;
-}
-
-.calculate-btn.secondary:hover {
-  background: #b18b3c;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.18);
 }
 
 /* ================= RESULTADO ================= */
@@ -172,6 +179,7 @@ body {
   border-left: 6px solid #6b0f0f;
   font-weight: 700;
   line-height: 1.6;
+  animation: fadeInUp 0.5s ease;
 }
 
 /* ================= FOOTER ================= */
@@ -180,28 +188,33 @@ body {
   text-align: center;
   padding: 18px;
   background: #6b0f0f;
-  color: #fff;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 600;
 }
 
-/* ===================================================== */
-/* ================= RESPONSIVO MOBILE ================= */
-/* ===================================================== */
+.footer-credit {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.8;
+}
 
+/* ================= RESPONSIVO ================= */
 @media (max-width: 768px) {
 
   .header-content {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0 10px;
   }
 
   .logo {
-    height: 62px;
+    height: 58px;
   }
 
   .header-text h1 {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .header-text span {
@@ -222,39 +235,23 @@ body {
     width: 100%;
   }
 
-  .article {
-    padding: 12px 14px;
-  }
-
-  .article p {
-    font-size: 13px;
-  }
-
-  .calculate-btn {
-    font-size: 15px;
-    padding: 14px;
-  }
-
   .watermark {
-    background-size: 280px;
+    background-size: 260px;
   }
 }
 
-@media (max-width: 420px) {
+/* ================= ANIMAÇÕES ================= */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  .header-text h1 {
-    font-size: 15px;
-  }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  .header-text span {
-    font-size: 12px;
-  }
-
-  .logo {
-    height: 55px;
-  }
-
-  .watermark {
-    background-size: 220px;
-  }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
