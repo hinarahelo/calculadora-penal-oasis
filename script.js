@@ -1,5 +1,5 @@
 // =========================
-// ARTIGOS – 1 A 65 (FIXOS)
+// ARTIGOS 1 AO 65 (IMUTÁVEIS)
 // =========================
 const artigos = [
 {numero:1,nome:"Direção Perigosa",pena:15,multa:2000,fianca:1500},
@@ -70,31 +70,36 @@ const artigos = [
 ];
 
 // =========================
-// LÓGICA (SEM REMOÇÕES)
+// CONTROLE DE SELEÇÃO
 // =========================
 const artigosContainer = document.getElementById("artigosContainer");
 const artigosSelecionados = new Map();
 
+// =========================
+// PESQUISA (NÃO APAGA OS ANTERIORES)
+// =========================
 document.getElementById("searchButton").onclick = () => {
   const termo = document.getElementById("searchInput").value.toLowerCase();
-  artigosContainer.innerHTML = "";
   artigosContainer.style.display = "block";
 
   artigos.filter(a =>
     a.numero.toString() === termo || a.nome.toLowerCase().includes(termo)
   ).forEach(a => {
-    const checked = artigosSelecionados.has(a.numero) ? "checked" : "";
+
+    if (document.getElementById(`art-${a.numero}`)) return;
+
     artigosContainer.innerHTML += `
-      <div class="article">
+      <div class="article" id="art-${a.numero}">
         <strong>Art. ${a.numero} – ${a.nome}</strong>
         <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
         Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
         <label>
-          <input type="checkbox" class="artigo" ${checked}
-          data-numero="${a.numero}" data-nome="${a.nome}"
-          data-pena="${a.pena}" data-multa="${a.multa}"
-          data-fianca="${a.fianca}"
-          onchange="toggleArtigo(this)">
+          <input type="checkbox"
+            onchange="toggleArtigo(this)"
+            data-numero="${a.numero}"
+            data-pena="${a.pena}"
+            data-multa="${a.multa}"
+            data-fianca="${a.fianca}">
           Selecionar
         </label>
       </div>`;
@@ -107,10 +112,15 @@ function toggleArtigo(el) {
              : artigosSelecionados.delete(n);
 }
 
+// =========================
+// CÁLCULO
+// =========================
 function calcular() {
   let pena=0,multa=0,fianca=0,inafiancavel=false;
+
   artigosSelecionados.forEach(a=>{
-    pena+=+a.pena; multa+=+a.multa;
+    pena+=+a.pena;
+    multa+=+a.multa;
     a.fianca==="null" ? inafiancavel=true : fianca+=+a.fianca;
   });
 
@@ -122,17 +132,20 @@ function calcular() {
   const red=Math.round(pena*perc);
 
   document.getElementById("resultado").innerHTML=`
-    <strong>Artigos Selecionados:</strong><br>
-    ${[...artigosSelecionados.values()].map(a=>`Art. ${a.numero} – ${a.nome}`).join("<br>")||"Nenhum"}
+    <strong>Artigos Selecionados:</strong>
+    ${[...artigosSelecionados.keys()].join(", ") || "Nenhum"}
     <hr>
     Atenuantes: ${perc*100}%<br>
     Redução: ${red} meses<br>
     <strong>Pena Final:</strong> ${pena-red} meses<br>
     Multa: R$ ${multa.toLocaleString("pt-BR")}<br>
-    Fiança: ${inafiancavel?"INAFIANÇÁVEL":"R$ "+fianca.toLocaleString("pt-BR")}
+    Fiança: ${inafiancavel ? "INAFIANÇÁVEL" : "R$ "+fianca.toLocaleString("pt-BR")}
   `;
 }
 
+// =========================
+// LIMPAR
+// =========================
 function limpar(){
   artigosSelecionados.clear();
   artigosContainer.innerHTML="";
