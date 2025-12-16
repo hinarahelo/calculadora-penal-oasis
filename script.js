@@ -1,5 +1,5 @@
 // =========================
-// ARTIGOS 1 AO 65 (IMUTÁVEIS)
+// ARTIGOS 1 AO 65 (FIXOS)
 // =========================
 const artigos = [
 {numero:1,nome:"Direção Perigosa",pena:15,multa:2000,fianca:1500},
@@ -70,40 +70,42 @@ const artigos = [
 ];
 
 // =========================
-// CONTROLE DE SELEÇÃO
+// ESTADO GLOBAL
 // =========================
 const artigosContainer = document.getElementById("artigosContainer");
 const artigosSelecionados = new Map();
 
 // =========================
-// PESQUISA (NÃO APAGA OS ANTERIORES)
+// PESQUISA (PRESERVA SELEÇÃO)
 // =========================
 document.getElementById("searchButton").onclick = () => {
   const termo = document.getElementById("searchInput").value.toLowerCase();
   artigosContainer.style.display = "block";
 
-  artigos.filter(a =>
-    a.numero.toString() === termo || a.nome.toLowerCase().includes(termo)
-  ).forEach(a => {
+  artigos
+    .filter(a => a.numero.toString() === termo || a.nome.toLowerCase().includes(termo))
+    .forEach(a => {
 
-    if (document.getElementById(`art-${a.numero}`)) return;
+      if (document.getElementById(`art-${a.numero}`)) return;
 
-    artigosContainer.innerHTML += `
-      <div class="article" id="art-${a.numero}">
-        <strong>Art. ${a.numero} – ${a.nome}</strong>
-        <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
-        Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
-        <label>
-          <input type="checkbox"
-            onchange="toggleArtigo(this)"
-            data-numero="${a.numero}"
-            data-pena="${a.pena}"
-            data-multa="${a.multa}"
-            data-fianca="${a.fianca}">
-          Selecionar
-        </label>
-      </div>`;
-  });
+      const checked = artigosSelecionados.has(a.numero) ? "checked" : "";
+
+      artigosContainer.innerHTML += `
+        <div class="article" id="art-${a.numero}">
+          <strong>Art. ${a.numero} – ${a.nome}</strong>
+          <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
+          Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
+          <label>
+            <input type="checkbox" ${checked}
+              onchange="toggleArtigo(this)"
+              data-numero="${a.numero}"
+              data-pena="${a.pena}"
+              data-multa="${a.multa}"
+              data-fianca="${a.fianca}">
+            Selecionar
+          </label>
+        </div>`;
+    });
 };
 
 function toggleArtigo(el) {
