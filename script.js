@@ -71,28 +71,38 @@ const artigos = [
 ];
 
 // =======================================================
-// ESTADO GLOBAL
+// UTIL — REMOVE ACENTOS
+// =======================================================
+function normalizarTexto(texto) {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
+}
+
+// =======================================================
+// ESTADO
 // =======================================================
 const artigosContainer = document.getElementById("artigosContainer");
 const selecionados = new Map();
 
 // =======================================================
-// PESQUISA (NUMEROS OU NOME)
+// BUSCA (COM OU SEM ACENTO)
 // =======================================================
 document.getElementById("searchButton").onclick = () => {
-  const termoRaw = document.getElementById("searchInput").value;
-  const termo = termoRaw.trim().toLowerCase();
+  const termoInput = document.getElementById("searchInput").value.trim();
+  const termoNormalizado = normalizarTexto(termoInput);
 
   artigosContainer.innerHTML = "";
   artigosContainer.style.display = "block";
 
-  if (!termo) return;
+  if (!termoNormalizado) return;
 
   const resultados = artigos.filter(a => {
-    if (!isNaN(termo)) {
-      return a.numero === Number(termo);
+    if (!isNaN(termoInput)) {
+      return a.numero === Number(termoInput);
     }
-    return a.nome.toLowerCase().includes(termo);
+    return normalizarTexto(a.nome).includes(termoNormalizado);
   });
 
   resultados.forEach(a => {
@@ -102,8 +112,11 @@ document.getElementById("searchButton").onclick = () => {
     div.className = "article";
     div.innerHTML = `
       <strong>Art. ${a.numero} – ${a.nome}</strong>
-      <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
-      Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
+      <p>
+        Pena: ${a.pena} meses |
+        Multa: R$ ${a.multa} |
+        Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}
+      </p>
       <label>
         <input type="checkbox">
         Selecionar
@@ -145,10 +158,12 @@ function calcular() {
   const reducao = Math.round(pena * perc);
 
   document.getElementById("resultado").innerHTML = `
-    <strong>Artigos Selecionados:</strong> ${[...selecionados.keys()].join(", ") || "Nenhum"}<br>
-    Pena Final: ${pena - reducao} meses<br>
-    Multa: R$ ${multa}<br>
-    Fiança: ${inafiancavel ? "INAFIANÇÁVEL" : "R$ " + fianca}
+    <strong>Artigos Selecionados:</strong>
+    ${[...selecionados.keys()].join(", ") || "Nenhum"}<br><br>
+
+    <strong>Pena Final:</strong> ${pena - reducao} meses<br>
+    <strong>Multa:</strong> R$ ${multa}<br>
+    <strong>Fiança:</strong> ${inafiancavel ? "INAFIANÇÁVEL" : "R$ " + fianca}
   `;
 }
 
