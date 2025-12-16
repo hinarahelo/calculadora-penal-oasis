@@ -31,88 +31,96 @@ const artigos = [
   {numero:26,nome:"Tráfico de Material Ilegal",pena:25,multa:4000,fianca:8750},
   {numero:27,nome:"Tráfico Ilegal de Armas",pena:60,multa:9500,fianca:10000},
   {numero:28,nome:"Fuga de Abordagem",pena:20,multa:1500,fianca:2500},
-  {numero:30,nome:"Perturbação da Ordem Pública",pena:15,multa:1500,fianca:2500},
-  {numero:31,nome:"Porte de Dinheiro Sujo",pena:15,multa:1500,fianca:2000},
-  {numero:32,nome:"Uso de Vestimenta de Servidor Público",pena:15,multa:1500,fianca:1700},
-  {numero:33,nome:"Falsidade Ideológica",pena:25,multa:2250,fianca:3125},
-  {numero:34,nome:"Desacato à Autoridade",pena:25,multa:4000,fianca:4000},
-  {numero:35,nome:"Abandono de Função",pena:25,multa:4000,fianca:2500},
-  {numero:36,nome:"Desobediência de Ordem Legal",pena:25,multa:5000,fianca:5000},
-  {numero:37,nome:"Tentativa de Suborno",pena:40,multa:4000,fianca:8750},
-  {numero:38,nome:"Abuso de Autoridade",pena:25,multa:4000,fianca:2500},
-  {numero:39,nome:"Fraudar Informações",pena:20,multa:3000,fianca:2000},
-  {numero:40,nome:"Corrida Ilegal",pena:30,multa:5000,fianca:2250},
-  {numero:41,nome:"Invasão aos Órgãos Públicos",pena:20,multa:3000,fianca:2000},
-  {numero:42,nome:"Invasão de Domicílio",pena:20,multa:3500,fianca:2500},
-  {numero:43,nome:"Veículo Danificado",pena:0,multa:5000,fianca:5000},
-  {numero:44,nome:"Legítima Defesa",pena:0,multa:0,fianca:0},
-  {numero:45,nome:"Resistência à Prisão",pena:20,multa:2500,fianca:7000},
-  {numero:46,nome:"Perturbação do Sossego Público",pena:0,multa:7500,fianca:0},
-  {numero:47,nome:"Prevaricação",pena:30,multa:4000,fianca:2000},
-  {numero:48,nome:"Desmanche de Veículo",pena:30,multa:2000,fianca:4500},
-  {numero:49,nome:"Ocultação de Provas",pena:20,multa:1500,fianca:3000},
-  {numero:50,nome:"Descaminho",pena:40,multa:20000,fianca:8500},
-  {numero:51,nome:"Peculato",pena:20,multa:2000,fianca:3000},
-  {numero:52,nome:"Vadiagem",pena:15,multa:1000,fianca:2000},
-  {numero:53,nome:"Vandalismo",pena:25,multa:2500,fianca:3000},
-  {numero:54,nome:"Perjúrio",pena:20,multa:1500,fianca:2500},
-  {numero:55,nome:"Cúmplice",pena:20,multa:2000,fianca:4300},
-  {numero:56,nome:"Apologia ao Crime",pena:15,multa:1500,fianca:2500},
-  {numero:57,nome:"Tráfico de Influência",pena:20,multa:3000,fianca:4500},
-  {numero:58,nome:"Obstrução de Justiça",pena:20,multa:3000,fianca:4500},
-  {numero:59,nome:"Associação Criminosa",pena:30,multa:2500,fianca:4000},
-  {numero:60,nome:"Associação ao Tráfico",pena:30,multa:2500,fianca:4000},
-  {numero:61,nome:"Receptação de Veículos",pena:25,multa:1500,fianca:2500},
-  {numero:62,nome:"Tentativa de Furto",pena:20,multa:1500,fianca:5000},
-  {numero:63,nome:"Tentativa de Roubo",pena:20,multa:1500,fianca:5000},
-  {numero:64,nome:"Extorsão",pena:20,multa:2000,fianca:5000},
-  {numero:65,nome:"Assédio",pena:20,multa:1500,fianca:3000}
+  {numero:29,nome:"Perturbação da Ordem Pública",pena:15,multa:1500,fianca:2500},
+  {numero:30,nome:"Porte de Dinheiro Sujo",pena:15,multa:1500,fianca:2000},
+  {numero:31,nome:"Uso de Vestimenta de Servidor Público",pena:15,multa:1500,fianca:1700},
+  {numero:32,nome:"Falsidade Ideológica",pena:25,multa:2250,fianca:3125},
+  {numero:33,nome:"Desacato à Autoridade",pena:25,multa:4000,fianca:4000},
+  {numero:34,nome:"Abandono de Função",pena:25,multa:4000,fianca:2500},
+  {numero:35,nome:"Desobediência de Ordem Legal",pena:25,multa:5000,fianca:5000},
+  {numero:36,nome:"Tentativa de Suborno",pena:40,multa:4000,fianca:8750},
+  {numero:37,nome:"Abuso de Autoridade",pena:25,multa:4000,fianca:2500},
+  {numero:38,nome:"Fraudar Informações",pena:20,multa:3000,fianca:2000},
+  {numero:39,nome:"Corrida Ilegal",pena:30,multa:5000,fianca:2250},
+  {numero:40,nome:"Invasão aos Órgãos Públicos",pena:20,multa:3000,fianca:2000},
+  {numero:41,nome:"Invasão de Domicílio",pena:20,multa:3500,fianca:2500},
+  {numero:42,nome:"Veículo Danificado",pena:0,multa:5000,fianca:5000},
+  {numero:43,nome:"Legítima Defesa",pena:0,multa:0,fianca:0},
+  {numero:44,nome:"Resistência à Prisão",pena:20,multa:2500,fianca:7000},
+  {numero:45,nome:"Perturbação do Sossego Público",pena:0,multa:7500,fianca:0},
+  {numero:46,nome:"Prevaricação",pena:30,multa:4000,fianca:2000},
+  {numero:47,nome:"Desmanche de Veículo",pena:30,multa:2000,fianca:4500},
+  {numero:48,nome:"Ocultação de Provas",pena:20,multa:1500,fianca:3000},
+  {numero:49,nome:"Descaminho",pena:40,multa:20000,fianca:8500},
+  {numero:50,nome:"Peculato",pena:20,multa:2000,fianca:3000},
+  {numero:51,nome:"Vadiagem",pena:15,multa:1000,fianca:2000},
+  {numero:52,nome:"Vandalismo",pena:25,multa:2500,fianca:3000},
+  {numero:53,nome:"Perjúrio",pena:20,multa:1500,fianca:2500},
+  {numero:54,nome:"Cúmplice",pena:20,multa:2000,fianca:4300},
+  {numero:55,nome:"Apologia ao Crime",pena:15,multa:1500,fianca:2500},
+  {numero:56,nome:"Tráfico de Influência",pena:20,multa:3000,fianca:4500},
+  {numero:57,nome:"Obstrução de Justiça",pena:20,multa:3000,fianca:4500},
+  {numero:58,nome:"Associação Criminosa",pena:30,multa:2500,fianca:4000},
+  {numero:59,nome:"Associação ao Tráfico",pena:30,multa:2500,fianca:4000},
+  {numero:60,nome:"Receptação de Veículos",pena:25,multa:1500,fianca:2500},
+  {numero:61,nome:"Tentativa de Furto",pena:20,multa:1500,fianca:5000},
+  {numero:62,nome:"Tentativa de Roubo",pena:20,multa:1500,fianca:5000},
+  {numero:63,nome:"Extorsão",pena:20,multa:2000,fianca:5000},
+  {numero:64,nome:"Assédio",pena:20,multa:1500,fianca:3000},
+  {numero:65,nome:"Associação Criminosa Armada",pena:35,multa:3000,fianca:null}
 ];
 
 // =======================================================
-// ESTADO GLOBAL
+// ESTADO
 // =======================================================
 const artigosContainer = document.getElementById("artigosContainer");
 const selecionados = new Map();
 
 // =======================================================
-// PESQUISA (FUNCIONAL)
+// BUSCA (NÚMERO OU NOME)
 // =======================================================
 document.getElementById("searchButton").onclick = () => {
-  const termo = document.getElementById("searchInput").value.trim().toLowerCase();
+  const termoRaw = document.getElementById("searchInput").value;
+  const termo = termoRaw.trim().toLowerCase();
 
   artigosContainer.innerHTML = "";
   artigosContainer.style.display = "block";
 
-  artigos
-    .filter(a =>
-      a.numero.toString() === termo ||
-      a.nome.toLowerCase().includes(termo)
-    )
-    .forEach(a => {
-      const marcado = selecionados.has(a.numero) ? "checked" : "";
+  if (!termo) return;
 
-      const div = document.createElement("div");
-      div.className = "article";
-      div.innerHTML = `
-        <strong>Art. ${a.numero} – ${a.nome}</strong>
-        <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
-        Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
-        <label>
-          <input type="checkbox" ${marcado}>
-          Selecionar
-        </label>
-      `;
+  const resultados = artigos.filter(a => {
+    if (!isNaN(termo)) {
+      return a.numero === Number(termo);
+    }
+    return a.nome.toLowerCase().includes(termo);
+  });
 
-      const checkbox = div.querySelector("input");
-      checkbox.onchange = () => {
-        checkbox.checked
-          ? selecionados.set(a.numero, a)
-          : selecionados.delete(a.numero);
-      };
+  resultados.forEach(a => {
+    const marcado = selecionados.has(a.numero);
 
-      artigosContainer.appendChild(div);
-    });
+    const div = document.createElement("div");
+    div.className = "article";
+    div.innerHTML = `
+      <strong>Art. ${a.numero} – ${a.nome}</strong>
+      <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} |
+      Fiança: ${a.fianca === null ? "INAFIANÇÁVEL" : "R$ " + a.fianca}</p>
+      <label>
+        <input type="checkbox">
+        Selecionar
+      </label>
+    `;
+
+    const checkbox = div.querySelector("input");
+    checkbox.checked = marcado;
+
+    checkbox.onchange = () => {
+      checkbox.checked
+        ? selecionados.set(a.numero, a)
+        : selecionados.delete(a.numero);
+    };
+
+    artigosContainer.appendChild(div);
+  });
 };
 
 // =======================================================
@@ -129,8 +137,9 @@ function calcular() {
   });
 
   let perc = 0;
-  document.querySelectorAll(".atenuante:checked")
-    .forEach(a => perc += Number(a.dataset.percent));
+  document.querySelectorAll(".atenuante:checked").forEach(a => {
+    perc += Number(a.dataset.percent);
+  });
   if (perc > 0.4) perc = 0.4;
 
   const reducao = Math.round(pena * perc);
@@ -150,7 +159,7 @@ function limparCalculo() {
   selecionados.clear();
   artigosContainer.innerHTML = "";
   artigosContainer.style.display = "none";
-  document.getElementById("resultado").innerHTML = "";
   document.getElementById("searchInput").value = "";
+  document.getElementById("resultado").innerHTML = "";
   document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
 }
