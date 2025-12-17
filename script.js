@@ -73,7 +73,7 @@ const artigos = [
 /* ================= CONTROLE ================= */
 const artigosSelecionados = new Set();
 
-/* ================= PESQUISA (FUNCIONAL) ================= */
+/* ================= PESQUISA (COM VALORES VISÍVEIS) ================= */
 document.getElementById("searchButton").onclick = () => {
   const termo = normalizarTexto(document.getElementById("searchInput").value);
   const container = document.getElementById("artigosContainer");
@@ -81,35 +81,43 @@ document.getElementById("searchButton").onclick = () => {
   container.innerHTML = "";
   container.style.display = "block";
 
-  artigos.filter(a =>
-    normalizarTexto(a.nome).includes(termo) ||
-    a.numero.toString() === termo
-  ).forEach(a => {
+  artigos
+    .filter(a =>
+      normalizarTexto(a.nome).includes(termo) ||
+      a.numero.toString() === termo
+    )
+    .forEach(a => {
 
-    const marcado = artigosSelecionados.has(a.numero);
+      const marcado = artigosSelecionados.has(a.numero);
 
-    const fiancaTexto =
-      a.numero === 44 ? "R$ 0" :
-      a.fianca === 0 ? "<strong style='color:red'>INAFIANÇÁVEL</strong>" :
-      "R$ " + a.fianca;
+      const fiancaTexto =
+        a.numero === 44 ? "R$ 0" :
+        a.fianca === 0 ? "INAFIANÇÁVEL" :
+        "R$ " + a.fianca;
 
-    container.innerHTML += `
-      <div class="article">
-        <strong>Art. ${a.numero} – ${a.nome}</strong>
-        <p>${a.descricao}</p>
-        <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | Fiança: ${fiancaTexto}</p>
-        <label>
-          <input type="checkbox" class="artigo" data-numero="${a.numero}" ${marcado ? "checked" : ""}>
-          Selecionar
-        </label>
-      </div>
-    `;
-  });
+      container.innerHTML += `
+        <div class="article">
+          <strong>Art. ${a.numero} – ${a.nome}</strong>
+          <p>${a.descricao}</p>
+          <p>
+            Pena: ${a.pena} meses |
+            Multa: R$ ${a.multa} |
+            Fiança: ${fiancaTexto}
+          </p>
+          <label>
+            <input type="checkbox" class="artigo" data-numero="${a.numero}" ${marcado ? "checked" : ""}>
+            Selecionar
+          </label>
+        </div>
+      `;
+    });
 
   document.querySelectorAll(".artigo").forEach(cb => {
     cb.onchange = () => {
       const num = Number(cb.dataset.numero);
-      cb.checked ? artigosSelecionados.add(num) : artigosSelecionados.delete(num);
+      cb.checked
+        ? artigosSelecionados.add(num)
+        : artigosSelecionados.delete(num);
     };
   });
 };
@@ -141,9 +149,11 @@ function calcular() {
   const totalHonorarios = inafiançavel ? honorarios : fianca + honorarios;
 
   document.getElementById("resultado").innerHTML = `
-    ${inafiançavel ? `<div style="background:#8b0000;color:#fff;padding:10px;border-radius:6px;font-weight:bold;text-align:center;margin-bottom:10px;">
-      ⚠️ CRIME INAFIANÇÁVEL
-    </div>` : ""}
+    ${inafiançavel ? `
+      <div style="background:#8b0000;color:#fff;padding:10px;border-radius:6px;font-weight:bold;text-align:center;margin-bottom:10px;">
+        ⚠️ CRIME INAFIANÇÁVEL
+      </div>` : ""
+    }
     <strong>Artigos Selecionados:</strong> ${[...artigosSelecionados].join(", ") || "Nenhum"}<br><br>
     <strong>Pena:</strong> ${penaFinal} meses<br>
     <strong>Multa:</strong> R$ ${multa}<br>
