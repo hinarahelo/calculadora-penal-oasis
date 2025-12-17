@@ -1,11 +1,9 @@
-document.addEventListener("DOMContentLoaded", () => {
+function normalizarTexto(txt) {
+  return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
 
-  function normalizarTexto(txt) {
-    return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-  }
-
-  /* ================= ARTIGOS (INALTERADOS) ================= */
-  const artigos = [
+/* ================= ARTIGOS (INALTERADOS) ================= */
+const artigos = [
 {numero:1,nome:"Direção Perigosa",descricao:"Utilização do veículo para demonstrar manobras perigosas colocando terceiros em risco.",pena:15,multa:2000,fianca:1500},
 {numero:2,nome:"Homicídio Culposo",descricao:"Morte causada por imprudência, negligência ou imperícia, sem intenção de matar.",pena:30,multa:6000,fianca:0},
 {numero:3,nome:"Homicídio Doloso",descricao:"Matar alguém intencionalmente.",pena:40,multa:12000,fianca:0},
@@ -70,34 +68,96 @@ document.addEventListener("DOMContentLoaded", () => {
 {numero:63,nome:"Tentativa de Roubo",descricao:"Início de roubo não consumado.",pena:20,multa:1500,fianca:5000},
 {numero:64,nome:"Extorsão",descricao:"Forçar vantagem por ameaça.",pena:20,multa:2000,fianca:5000},
 {numero:65,nome:"Assédio",descricao:"Conduta abusiva repetitiva.",pena:20,multa:1500,fianca:3000}
-  ];
+];
 
-  const artigosSelecionados = new Set();
-  const searchInput = document.getElementById("searchInput");
-  const searchButton = document.getElementById("searchButton");
+/* ================= CONTROLE ================= */
+const artigosSelecionados = new Set();
+
+/* ================= PESQUISA (FUNCIONAL) ================= */
+document.getElementById("searchButton").onclick = () => {
+  const termo = normalizarTexto(document.getElementById("searchInput").value);
   const container = document.getElementById("artigosContainer");
 
-  function pesquisar() {
-    const termo = normalizarTexto(searchInput.value.trim());
-    container.innerHTML = "";
-    container.style.display = "block";
+  container.innerHTML = "";
+  container.style.display = "block";
 
-    artigos.filter(a =>
-      normalizarTexto(a.nome).includes(termo) ||
-      a.numero.toString() === termo
-    ).forEach(a => {
-      container.innerHTML += `
-        <div class="article">
-          <strong>Art. ${a.numero} – ${a.nome}</strong>
-          <p>${a.descricao}</p>
-        </div>
-      `;
-    });
-  }
+  artigos.filter(a =>
+    normalizarTexto(a.nome).includes(termo) ||
+    a.numero.toString() === termo
+  ).forEach(a => {
 
-  searchButton.addEventListener("click", pesquisar);
-  searchInput.addEventListener("keydown", e => {
-    if (e.key === "Enter") pesquisar();
+    const marcado = artigosSelecionados.has(a.numero);
+
+    const fiancaTexto =
+      a.numero === 44 ? "R$ 0" :
+      a.fianca === 0 ? "<strong style='color:red'>INAFIANÇÁVEL</strong>" :
+      "R$ " + a.fianca;
+
+    container.innerHTML += `
+      <div class="article">
+        <strong>Art. ${a.numero} – ${a.nome}</strong>
+        <p>${a.descricao}</p>
+        <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | Fiança: ${fiancaTexto}</p>
+        <label>
+          <input type="checkbox" class="artigo" data-numero="${a.numero}" ${marcado ? "checked" : ""}>
+          Selecionar
+        </label>
+      </div>
+    `;
   });
 
-});
+  document.querySelectorAll(".artigo").forEach(cb => {
+    cb.onchange = () => {
+      const num = Number(cb.dataset.numero);
+      cb.checked ? artigosSelecionados.add(num) : artigosSelecionados.delete(num);
+    };
+  });
+};
+
+/* ================= CÁLCULO ================= */
+function calcular() {
+  let pena = 0, multa = 0, fianca = 0, honorarios = 0, perc = 0;
+  let inafiançavel = false;
+
+  artigos.forEach(a => {
+    if (artigosSelecionados.has(a.numero)) {
+      pena += a.pena;
+      multa += a.multa;
+
+      if (a.fianca === 0 && a.numero !== 44) {
+        inafiançavel = true;
+      } else {
+        fianca += a.fianca;
+      }
+    }
+  });
+
+  document.querySelectorAll(".atenuante:checked").forEach(a => perc += +a.dataset.percent);
+  if (perc > 0.4) perc = 0.4;
+
+  document.querySelectorAll(".honorario:checked").forEach(h => honorarios += +h.dataset.valor);
+
+  const penaFinal = pena - Math.round(pena * perc);
+  const totalHonorarios = inafiançavel ? honorarios : fianca + honorarios;
+
+  document.getElementById("resultado").innerHTML = `
+    ${inafiançavel ? `<div style="background:#8b0000;color:#fff;padding:10px;border-radius:6px;font-weight:bold;text-align:center;margin-bottom:10px;">
+      ⚠️ CRIME INAFIANÇÁVEL
+    </div>` : ""}
+    <strong>Artigos Selecionados:</strong> ${[...artigosSelecionados].join(", ") || "Nenhum"}<br><br>
+    <strong>Pena:</strong> ${penaFinal} meses<br>
+    <strong>Multa:</strong> R$ ${multa}<br>
+    <strong>Fiança:</strong> R$ ${fianca}<br>
+    <strong>Total com Honorários:</strong> R$ ${totalHonorarios}
+  `;
+}
+
+/* ================= LIMPAR ================= */
+function limparCalculo() {
+  artigosSelecionados.clear();
+  document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
+  document.getElementById("resultado").innerHTML = "";
+  document.getElementById("artigosContainer").innerHTML = "";
+  document.getElementById("artigosContainer").style.display = "none";
+  document.getElementById("searchInput").value = "";
+}
