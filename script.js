@@ -76,9 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
   const searchButton = document.getElementById("searchButton");
   const container = document.getElementById("artigosContainer");
-  const resultado = document.getElementById("resultado");
 
-  /* ================= PESQUISA FUNCIONAL ================= */
   function pesquisar() {
     const termo = normalizarTexto(searchInput.value.trim());
     container.innerHTML = "";
@@ -88,31 +86,12 @@ document.addEventListener("DOMContentLoaded", () => {
       normalizarTexto(a.nome).includes(termo) ||
       a.numero.toString() === termo
     ).forEach(a => {
-
-      const marcado = artigosSelecionados.has(a.numero);
-      const fiancaTexto =
-        a.numero === 44 ? "0" :
-        a.fianca === 0 ? "<span style='color:red;font-weight:bold'>INAFIANÇÁVEL</span>" :
-        "R$ " + a.fianca;
-
       container.innerHTML += `
         <div class="article">
           <strong>Art. ${a.numero} – ${a.nome}</strong>
           <p>${a.descricao}</p>
-          <p>Pena: ${a.pena} meses | Multa: R$ ${a.multa} | Fiança: ${fiancaTexto}</p>
-          <label>
-            <input type="checkbox" class="artigo" data-numero="${a.numero}" ${marcado ? "checked" : ""}>
-            Selecionar
-          </label>
         </div>
       `;
-    });
-
-    document.querySelectorAll(".artigo").forEach(cb => {
-      cb.onchange = () => {
-        const num = Number(cb.dataset.numero);
-        cb.checked ? artigosSelecionados.add(num) : artigosSelecionados.delete(num);
-      };
     });
   }
 
@@ -120,45 +99,5 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInput.addEventListener("keydown", e => {
     if (e.key === "Enter") pesquisar();
   });
-
-  /* ================= CÁLCULO ================= */
-  window.calcular = function () {
-    let pena = 0, multa = 0, fianca = 0, honorarios = 0, perc = 0;
-    let inafiançavel = false;
-
-    artigos.forEach(a => {
-      if (artigosSelecionados.has(a.numero)) {
-        pena += a.pena;
-        multa += a.multa;
-        if (a.fianca === 0 && a.numero !== 44) inafiançavel = true;
-        else fianca += a.fianca;
-      }
-    });
-
-    document.querySelectorAll(".atenuante:checked").forEach(a => perc += +a.dataset.percent);
-    if (perc > 0.4) perc = 0.4;
-
-    document.querySelectorAll(".honorario:checked").forEach(h => honorarios += +h.dataset.valor);
-
-    const penaFinal = pena - Math.round(pena * perc);
-    const total = inafiançavel ? honorarios : (fianca + honorarios);
-
-    resultado.innerHTML = `
-      ${inafiançavel ? `<div style="background:#8b0000;color:#fff;padding:10px;border-radius:6px;font-weight:bold;text-align:center;margin-bottom:10px;">⚠️ CRIME INAFIANÇÁVEL</div>` : ""}
-      <strong>Pena:</strong> ${penaFinal} meses<br>
-      <strong>Multa:</strong> R$ ${multa}<br>
-      <strong>Fiança:</strong> R$ ${fianca}<br>
-      <strong>Total com Honorários:</strong> R$ ${total}
-    `;
-  };
-
-  window.limparCalculo = function () {
-    artigosSelecionados.clear();
-    document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
-    resultado.innerHTML = "";
-    container.innerHTML = "";
-    container.style.display = "none";
-    searchInput.value = "";
-  };
 
 });
